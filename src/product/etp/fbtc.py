@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
+import os
+import pandas as pd
 from pathlib import Path
 from product.abc import ETP
 from selenium import webdriver
@@ -8,8 +10,6 @@ from selenium.webdriver.common.by import By
 from sqlite3 import Connection
 from time import sleep
 from typing import Union
-import os
-import pandas as pd
 
 
 MONTH2NUMBER = {
