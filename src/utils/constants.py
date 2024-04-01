@@ -1,0 +1,2 @@
+TICKERS = ["ARKB", "BITB", "BRRR", "BTCO", "EZBC", "FBTC", "GBTC", "HODL", "IBIT"]
+TICKERS_NO_BTCO = ["ARKB", "BITB", "BRRR", "EZBC", "FBTC", "GBTC", "HODL", "IBIT"]
