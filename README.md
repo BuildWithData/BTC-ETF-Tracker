@@ -27,7 +27,7 @@ thanks 💪 !!!
 ## How To Use This If No CODING SKILLS 💻 🆘
 You do not know how to code or you simply wanna just look at the dashboards ?
 
-Just come back here in one week and you will find here a dedicated [video tutorial](TODO) for you.
+Just come back here in one week and you will find a dedicated [video tutorial](TODO) for you.
 
 ## How To Start 🚀
 More detailed docs coming soon, meanwhile you can check the how to get started video [here](TODO),
