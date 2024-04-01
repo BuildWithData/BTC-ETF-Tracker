@@ -1,0 +1,14 @@
+# config
+config.yaml
+
+# data
+data
+
+# python
+*.pyc
+__pycache__
+env
+
+# notebooks
+.ipynb_checkpoints
+*.ipynb
