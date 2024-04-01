@@ -30,7 +30,7 @@ You do not know how to code or you simply wanna just look at the dashboards ?
 Just come back here in one week and you will find a dedicated [video tutorial](TODO) for you.
 
 ## How To Start 🚀
-More detailed docs coming soon, meanwhile you can check the how to get started video [here](TODO),
+More detailed docs coming soon, meanwhile you can check the how to get started video [here](TODO).
 
 ## Data 📊
 We started scraping data on Feb 23rd and you can find them [here](TODO).
