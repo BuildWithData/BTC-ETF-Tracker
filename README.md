@@ -1,7 +1,7 @@
 # ₿TC ETF TRACKER
 On Jan 10th 2024 the SEC [approved](https://www.sec.gov/news/statement/gensler-statement-spot-bitcoin-011023)
 a series of Bitcoin ETFs opening the floodgates to tradfi investors (eg Pension Funds), who did not have access to Bitcoin
-yet and on 12th Jan ETFs started trading in what has been described by many as the Bitcoin IPO day.
+yet and on 11th Jan ETFs started trading in what has been described by many as the Bitcoin IPO day.
 
 <div align="center">
   <img src="./images/logo.jpeg"><br>
