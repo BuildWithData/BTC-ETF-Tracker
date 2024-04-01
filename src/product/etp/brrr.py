@@ -1,13 +1,13 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
+import os
+import pandas as pd
 from pathlib import Path
 from product.abc import ETP
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from sqlite3 import Connection
 from typing import Union
-import os
-import pandas as pd
 
 
 class BRRR(ETP):
