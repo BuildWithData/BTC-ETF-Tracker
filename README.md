@@ -40,8 +40,8 @@ Expect them to be updated at least once per week.
 Any help is very much appreciated and welcomed because more has to come this year as the impact of Bitcoin ETFs
 on tradfi has probably just started as we can read [here](https://docs.londonstockexchange.com/sites/default/files/documents/n0324.pdf).
 
-More infos coming soon... meanwhile have a look to the [Issue](TODO) section, there is already something there
-you can start with
+More infos coming soon... meanwhile have a look to the [Issue](https://github.com/BuildWithData/BTC-ETF-Tracker/issues) section, there is already something there
+you can start with.
 
 ## Additional Resources 📚
 Here in the [resouces file](./resources.md) you can find a list of articles and videos 
