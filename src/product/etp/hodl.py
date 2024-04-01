@@ -1,12 +1,12 @@
 from datetime import datetime
-from pathlib import Path
-from product.abc import ETP
-from sqlite3 import Connection
-from typing import Union
 import json
 import os
 import pandas as pd
+from pathlib import Path
+from product.abc import ETP
 import requests
+from sqlite3 import Connection
+from typing import Union
 
 
 class HODL(ETP):
