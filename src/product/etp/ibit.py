@@ -1,12 +1,12 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
-from pathlib import Path
-from product.abc import ETP
-from sqlite3 import Connection
-from typing import Union
 import os
 import pandas as pd
+from pathlib import Path
+from product.abc import ETP
 import requests
+from sqlite3 import Connection
+from typing import Union
 
 
 class IBIT(ETP):
