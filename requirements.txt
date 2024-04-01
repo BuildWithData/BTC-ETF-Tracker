@@ -1,0 +1,8 @@
+beautifulsoup4
+dash
+pandas
+pyyaml
+requests
+selenium
+xlrd
+yfinance # TODO: drop this if we get coinbase price data
