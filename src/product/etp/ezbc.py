@@ -1,15 +1,15 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
 import os
+import pandas as pd
 from pathlib import Path
 from product.abc import ETP
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from sqlite3 import Connection
 import time
 from typing import Union
-import pandas as pd
-from sqlite3 import Connection
 
 
 class EZBC(ETP):
