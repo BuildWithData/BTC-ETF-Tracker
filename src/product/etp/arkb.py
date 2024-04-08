@@ -48,6 +48,7 @@ class ARKB(ETP):
         driver = webdriver.Chrome(options)
         driver.get(self.url("html"))
 
+        driver.find_element(By.ID, "continue_us").click()
         driver.find_element(By.ID, "agree_button")
         driver.find_element(By.ID, "agree_button").click()
         driver.find_element(By.ID, "hs-eu-confirmation-button").click()
