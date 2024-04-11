@@ -38,7 +38,7 @@ c = conn.cursor()
 # INPUTS
 args = parser.parse_args()
 ref_date = args.date
-from_ref_date = args.from_date
+from_ref_date = args.from_date.isoformat()
 
 QUERY = "select * from holdings_btc"
 
@@ -46,7 +46,7 @@ QUERY = "select * from holdings_btc"
 # READ
 extracted = pd.DataFrame(
     c.execute(QUERY),
-    columns=["ref_date"] + TICKERS,
+    columns=["ref_date"] + TICKERS
 )
 
 ##################
@@ -61,8 +61,7 @@ if ref_date is not None:
     out = out[out["ref_date"] == ref_date]
 
 elif from_ref_date is not None:
-    out = out[out["ref_date"] >= ref_date]
-    import pdb; pdb.set_trace()
+    out = out[out["ref_date"] >= from_ref_date]
 
 ##################
 # LOAD

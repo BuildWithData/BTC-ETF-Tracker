@@ -74,7 +74,7 @@ else:
 
     if from_ref_date is not None:
 
-        target_dates = [d for d in target_dates if d >= from_ref_date] 
+        target_dates = [d for d in target_dates if d >= from_ref_date]
 
 
 for date_ in target_dates:
