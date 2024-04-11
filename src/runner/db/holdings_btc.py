@@ -1,4 +1,5 @@
 import argparse
+from datetime import date
 from functools import reduce
 import logging
 import numpy as np
@@ -17,7 +18,21 @@ LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
 parser = argparse.ArgumentParser(description="update table holdings_btc")
-parser.add_argument("-d", "--date", help="target date", required=False)
+group = parser.add_mutually_exclusive_group()
+group.add_argument(
+    "-d",
+    "--date",
+    help="target date",
+    required=False,
+    type=date.fromisoformat
+)
+group.add_argument(
+    "-fd",
+    "--from-date",
+    help="from target date",
+    required=False,
+    type=date.fromisoformat
+)
 
 conn_raw = sqlite3.connect(RAW_SCHEMA_PATH)
 c_raw = conn_raw.cursor()
@@ -43,6 +58,7 @@ extracted = {}
 # INPUTS
 args = parser.parse_args()
 ref_date = args.date
+from_ref_date = args.from_date
 
 ################
 # READ
@@ -50,6 +66,9 @@ for ticker, query in QUERIES.items():
 
     if ref_date is not None:
         query += f" where ref_date = '{ref_date}'"
+
+    elif from_ref_date is not None:
+        query += f" where ref_date >= '{from_ref_date}'"
 
     data = list(c_raw.execute(query))
     if ticker == "BTCO":

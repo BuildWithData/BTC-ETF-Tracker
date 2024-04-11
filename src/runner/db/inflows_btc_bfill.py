@@ -1,4 +1,5 @@
 import argparse
+from datetime import date
 import logging
 import pandas as pd
 import sqlite3
@@ -14,7 +15,21 @@ LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
 parser = argparse.ArgumentParser(description="update table inflows_btc")
-parser.add_argument("-d", "--date", help="target date", required=False)
+group = parser.add_mutually_exclusive_group()
+group.add_argument(
+    "-d",
+    "--date",
+    help="target date",
+    required=False,
+    type=date.fromisoformat
+)
+group.add_argument(
+    "-fd",
+    "--from-date",
+    help="from target date",
+    required=False,
+    type=date.fromisoformat
+)
 
 conn = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
 c = conn.cursor()
@@ -23,6 +38,7 @@ c = conn.cursor()
 # INPUTS
 args = parser.parse_args()
 ref_date = args.date
+from_ref_date = args.from_date
 
 QUERY = "select * from holdings_btc_bfill"
 
@@ -42,6 +58,9 @@ out = out[["ref_date"] + TICKERS + ["TOTAL"]]
 
 if ref_date is not None:
     out = out[out["ref_date"] == ref_date]
+
+elif from_ref_date is not None:
+    out = out[out["ref_date"] >= ref_date]
 
 ##################
 # LOAD

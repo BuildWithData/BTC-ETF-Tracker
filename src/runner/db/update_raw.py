@@ -23,7 +23,21 @@ LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
 parser = argparse.ArgumentParser(description="update all tables in schema raw")
-parser.add_argument("-d", "--date", help="target date", required=False)
+group = parser.add_mutually_exclusive_group()
+group.add_argument(
+    "-d",
+    "--date",
+    help="target date",
+    required=False,
+    type=date.fromisoformat
+)
+group.add_argument(
+    "-fd",
+    "--from-date",
+    help="from target date",
+    required=False,
+    type=date.fromisoformat
+)
 
 conn = sqlite3.connect(RAW_SCHEMA_PATH)
 c = conn.cursor()
@@ -46,9 +60,10 @@ services = [
 # INPUTS
 args = parser.parse_args()
 ref_date = args.date
+from_ref_date = args.from_date
 
 if ref_date is not None:
-    target_dates = [date.fromisoformat(ref_date)]
+    target_dates = [ref_date]
 
 else:
     start = date.fromisoformat("2024-02-25")
@@ -56,6 +71,10 @@ else:
     n_days = (end - start).days + 1
 
     target_dates = [start + timedelta(d) for d in range(n_days)]
+
+    if from_ref_date is not None:
+
+        target_dates = [d for d in target_dates if d >= from_ref_date] 
 
 
 for date_ in target_dates:
