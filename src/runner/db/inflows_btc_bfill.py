@@ -38,7 +38,7 @@ c = conn.cursor()
 # INPUTS
 args = parser.parse_args()
 ref_date = args.date
-from_ref_date = args.from_date.isoformat()
+from_ref_date = args.from_date
 
 QUERY = "select * from holdings_btc_bfill"
 
@@ -52,8 +52,8 @@ extracted = pd.DataFrame(
 ##################
 # PARSE
 out = (extracted.iloc[:, 1:] - extracted.iloc[:, 1:].shift(1)).round(2)
-out["ref_date"] = extracted[["ref_date"]]
-out = out[out["ref_date"] > "2024-02-23"]
+out["ref_date"] = extracted.ref_date.apply(date.fromisoformat)
+out = out[out["ref_date"] > date.fromisoformat("2024-02-23")]
 out = out[["ref_date"] + TICKERS + ["TOTAL"]]
 
 if ref_date is not None:
