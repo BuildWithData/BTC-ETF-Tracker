@@ -64,9 +64,9 @@ for ticker, query in QUERIES.items():
 ################
 # PARSE
 out = reduce(lambda x, y: x.merge(y, on="ref_date", how="outer"), extracted.values())
-cols_out = ["ref_date", "week", "week_day"] + list(out.columns[1:].values)
+cols_out = ["ref_date", "week", "day"] + list(out.columns[1:].values)
 out["week"] = out.ref_date.apply(lambda s: date.fromisoformat(s).isocalendar().week)
-out["week_day"] = out.ref_date.apply(lambda s: date.fromisoformat(s).strftime("%a"))
+out["day"] = out.ref_date.apply(lambda s: date.fromisoformat(s).strftime("%a"))
 out = out[cols_out]
 
 if out.empty:
