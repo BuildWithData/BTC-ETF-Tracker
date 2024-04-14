@@ -37,7 +37,7 @@ if ref_date is not None:
 
 data = list(c.execute(query))
 # TODO: this should be dynamic
-df = pd.DataFrame(data, columns=["ref_date", "week", "week_day"] + TICKERS)
+df = pd.DataFrame(data, columns=["ref_date", "week", "day"] + TICKERS)
 
 ################
 # PARSE
