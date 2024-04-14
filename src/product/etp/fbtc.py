@@ -92,7 +92,7 @@ class FBTC(ETP):
         for ts in file_timestamps:
 
             fn_html = ".".join([ts, "html"])
-            content = self.files[".".join([ts, "html"])]
+            content = self.files[fn_html]
             t = BeautifulSoup(content, "html.parser")
 
             ref_date_html = t.find(class_="nre-quick-quote-left-third-row").find("span").text.split(" ")[-1]
@@ -104,7 +104,7 @@ class FBTC(ETP):
             #daily_share_volume = int(t.find(class_="nre-quick-quote-right-col market-state-status ng-star-inserted").find_all(class_="col-left ng-star-inserted")[1].text.strip().replace(",", ""))
 
             fn_xls = ".".join([ts, "xls"])
-            content = self.files[".".join([ts, "xls"])]
+            content = self.files[fn_xls]
 
             ref_date_xls = content.loc[1]["FIDELITY WISE ORIGIN BITCOIN FUND"]
             for name, number in MONTH2NUMBER.items():
