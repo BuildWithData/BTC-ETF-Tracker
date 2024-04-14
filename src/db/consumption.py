@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS holdings_btc (
 
     ref_date    TEXT    NOT NULL,
     week        TEXT    NOT NULL,
-    week_day    TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
     BRRR        REAL,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS holdings_btc_bfill (
 
     ref_date    TEXT    NOT NULL,
     week        TEXT    NOT NULL,
-    week_day    TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
     BRRR        REAL,
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc (
 
     ref_date    TEXT    NOT NULL,
     week        TEXT    NOT NULL,
-    week_day    TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
     BRRR        REAL,
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc_bfill (
 
     ref_date    TEXT    NOT NULL,
     week        TEXT    NOT NULL,
-    week_day    TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
     BRRR        REAL,
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc_bxfill (
 
     ref_date    TEXT    NOT NULL,
     week        TEXT    NOT NULL,
-    week_day    TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
     BRRR        REAL,
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc_sma5 (
 
     ref_date    TEXT    NOT NULL,
     week        TEXT    NOT NULL,
-    week_day    TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
     BRRR        REAL,
