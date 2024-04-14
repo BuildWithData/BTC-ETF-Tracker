@@ -63,8 +63,8 @@ out["TOTAL"] = out.iloc[:, 1:].sum(axis=1).round(2)
 out["week"] = out.ref_date.apply(lambda s: date.fromisoformat(s).isocalendar().week)
 out["day"] = out.ref_date.apply(lambda s: date.fromisoformat(s).strftime("%a"))
 # btmx missing data
-out.iloc[2, -1] = NaN
-out.iloc[27, -1] = NaN
+out.iloc[2, -3] = NaN
+out.iloc[27, -3] = NaN
 out = out[["ref_date", "week", "day"] + [t for t in TICKERS if t != "BTCO"] + ["TOTAL"]]
 
 ##################
