@@ -37,12 +37,12 @@ if ref_date is not None:
 
 data = list(c.execute(query))
 # TODO: this should be dynamic
-df = pd.DataFrame(data, columns=["ref_date"] + TICKERS)
+df = pd.DataFrame(data, columns=["ref_date", "week", "week_day"] + TICKERS)
 
 ################
 # PARSE
 out = df.fillna(method="ffill")
-out["TOTAL"] = out.iloc[:, 1:].sum(axis=1)
+out["TOTAL"] = out.iloc[:, 3:].sum(axis=1)
 
 if out.empty:
     LOGGER.warning(f"Found no data for {ref_date}")
@@ -53,9 +53,9 @@ if out.empty:
 for row in out.itertuples():
 
     INSERT_QUERY = "INSERT INTO holdings_btc_bfill VALUES ("
-    INSERT_QUERY += f"'{row[1]}'"
+    INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
-    for v in row[2:]:
+    for v in row[4:]:
         INSERT_QUERY += ","
         if pd.isna(v):
             v = 'Null'
