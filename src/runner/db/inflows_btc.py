@@ -36,9 +36,9 @@ extracted = pd.DataFrame(
 ##################
 # PARSE
 out = (extracted.iloc[:, 3:] - extracted.iloc[:, 3:].shift(1)).round(2)
-out["ref_date"] = extracted[["ref_date"]]
-out["week"] = extracted[["week"]]
-out["day"] = extracted[["day"]]
+out["ref_date"] = extracted.ref_date
+out["week"] = extracted.week
+out["day"] = extracted.day
 out = out[out["ref_date"] > "2024-02-23"]
 out["TOTAL"] = out.iloc[:, :-3].sum(axis=1).round(2)
 out = out[["ref_date", "week", "day"] + TICKERS + ["TOTAL"]]
