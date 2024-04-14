@@ -95,9 +95,9 @@ def cumulative_outflows_GBTC() -> Figure:
     QUERY = "select ref_date, GBTC from inflows_btc_bxfill"
     outflows = pd.DataFrame(c.execute(QUERY), columns=["Date", "GBTC"])
     outflows = outflows.fillna(0) # btmx missing data for 2024-01-15, 2024-02-19
-    outflows["GBTC"] = outflows.GBTC.cumsum()
+    outflows["BTC"] = outflows.GBTC.cumsum()
 
-    fig = px.area(outflows, x="Date", y="GBTC")
+    fig = px.area(outflows, x="Date", y="BTC")
     fig.update_xaxes(rangebreaks=[dict(bounds=["sat", "mon"])])
 
     return fig
