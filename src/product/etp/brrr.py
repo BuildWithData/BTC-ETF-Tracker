@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
+from datetime import date
 import os
 import pandas as pd
 from pathlib import Path
@@ -43,7 +44,11 @@ class BRRR(ETP):
                 t = BeautifulSoup(content, "html.parser")
 
                 # Fund Summary
-                fund_summary_section = t.find(class_="mcb-wrap-inner mcb-wrap-inner-d7b93a111 mfn-module-wrapper mfn-wrapper-for-wraps")
+                class_ = "mcb-wrap-inner mcb-wrap-inner-d7b93a111 mfn-module-wrapper mfn-wrapper-for-wraps"
+                if self.date >= date.fromisoformat("2024-04-17"):
+                    class_ = "wrap mcb-wrap mcb-wrap-47ffbbeef one tablet-one laptop-one mobile-one rounded-edges clearfix"
+
+                fund_summary_section = t.find(class_=class_)
                 ref_date_fund_summary = datetime.strptime(
                     fund_summary_section.find("p").text.split(" ")[-1],
                     "%m/%d/%Y"
@@ -52,10 +57,19 @@ class BRRR(ETP):
                 btc_ref_price = float(fund_summary_section.find_all("dd")[20].text.replace(",", ""))
 
                 # Holdings
-                holdings_section = t.find_all(class_="mcb-wrap-inner mcb-wrap-inner-5a0dc249f mfn-module-wrapper mfn-wrapper-for-wraps")[0].find("table")
+                class_ = "mcb-wrap-inner mcb-wrap-inner-5a0dc249f mfn-module-wrapper mfn-wrapper-for-wraps"
+                if self.date >= date.fromisoformat("2024-04-17"):
+                    class_ = "wrap mcb-wrap mcb-wrap-4c89abd16 one-second tablet-one-second laptop-one-second mobile-one clearfix"
+
+                holdings_section = t.find_all(class_=class_)[0].find("table")
+
+                if self.date >= date.fromisoformat("2024-04-17"):
+                    class_ = "mcb-column-inner mfn-module-wrapper mcb-column-inner-677c130fe mcb-item-column-inner"
+                else:
+                    class_ = "column mcb-column mcb-item-118575426 one laptop-one tablet-one mobile-one column_column"
 
                 ref_date_holdings = datetime.strptime(
-                    t.find_all(class_="mcb-wrap-inner mcb-wrap-inner-5a0dc249f mfn-module-wrapper mfn-wrapper-for-wraps")[0].find(class_="column mcb-column mcb-item-118575426 one laptop-one tablet-one mobile-one column_column").find("p").text.split(" ")[-1],
+                    t.find_all(class_=class_)[0].find("p").text.split(" ")[-1],
                     "%m/%d/%Y"
                 ).date().isoformat()
                 market_cap = float(holdings_section.find_all("td")[7].text.replace(",", ""))  # TODO: market value but this is NAV market cap
