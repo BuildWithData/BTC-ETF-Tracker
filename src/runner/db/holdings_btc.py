@@ -1,4 +1,5 @@
 import argparse
+from datetime import date
 from functools import reduce
 import logging
 import numpy as np
@@ -63,6 +64,10 @@ for ticker, query in QUERIES.items():
 ################
 # PARSE
 out = reduce(lambda x, y: x.merge(y, on="ref_date", how="outer"), extracted.values())
+cols_out = ["ref_date", "week", "day"] + list(out.columns[1:].values)
+out["week"] = out.ref_date.apply(lambda s: date.fromisoformat(s).isocalendar().week)
+out["day"] = out.ref_date.apply(lambda s: date.fromisoformat(s).strftime("%a"))
+out = out[cols_out]
 
 if out.empty:
     LOGGER.warning(f"Found no data for {ref_date}")
@@ -73,9 +78,9 @@ if out.empty:
 for row in out.itertuples():
 
     INSERT_QUERY = "INSERT INTO holdings_btc VALUES ("
-    INSERT_QUERY += f"'{row[1]}'"
+    INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
-    for v in row[2:]:
+    for v in row[4:]:
         INSERT_QUERY += ","
         if pd.isna(v):
             v = 'Null'

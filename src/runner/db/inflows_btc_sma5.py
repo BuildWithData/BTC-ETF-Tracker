@@ -18,7 +18,7 @@ c = conn.cursor()
 #################
 # READ
 QUERY = "select * from inflows_btc_bxfill"
-df = pd.DataFrame(c.execute(QUERY), columns=["ref_date"] + TICKERS + ["TOTAL"])
+df = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + TICKERS + ["TOTAL"])
 
 #################
 # PARSE
@@ -38,9 +38,9 @@ c.execute(CLEAN_TABLE_QUERY)
 for row in out.itertuples():
 
     INSERT_QUERY = "INSERT INTO inflows_btc_sma5 VALUES ("
-    INSERT_QUERY += f"'{row[1]}'"
+    INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
-    for v in row[2:]:
+    for v in row[4:]:
         INSERT_QUERY += ","
         if pd.isna(v):
             v = 'Null'

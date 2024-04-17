@@ -22,8 +22,10 @@ def current_holdings() -> DataFrame:
     """
 
     QUERY = "select * from holdings_btc_bfill order by ref_date desc limit 1"
-    current_holdings = pd.DataFrame(c.execute(QUERY), columns=["Date"] + TICKERS + ["TOTAL"])
+    current_holdings = pd.DataFrame(c.execute(QUERY), columns=["Date", "week", "day"] + TICKERS + ["TOTAL"])
     current_holdings = current_holdings.drop("BTCO", axis=1)
+    current_holdings = current_holdings.drop("week", axis=1)
+    current_holdings = current_holdings.drop("day", axis=1)
     current_holdings = current_holdings.round(2)
 
     return current_holdings
@@ -35,7 +37,9 @@ def daily_inflows() -> DataFrame:
     """
 
     QUERY = "select * from inflows_btc_bxfill"
-    inflows = pd.DataFrame(c.execute(QUERY), columns=["Date"] + TICKERS_NO_BTCO + ["TOTAL"])
+    inflows = pd.DataFrame(c.execute(QUERY), columns=["Date", "week", "day"] + TICKERS_NO_BTCO + ["TOTAL"])
+    inflows = inflows.drop("week", axis=1)
+    inflows = inflows.drop("day", axis=1)
 
     monday2wednseday = [
         date.fromisoformat("2024-01-08"),
@@ -61,7 +65,7 @@ def cumulative_inflows() -> Figure:
     """
 
     QUERY = "select * from inflows_btc_bxfill"
-    inflows = pd.DataFrame(c.execute(QUERY), columns=["Date"] + TICKERS_NO_BTCO + ["TOTAL"])
+    inflows = pd.DataFrame(c.execute(QUERY), columns=["Date", "week", "day"] + TICKERS_NO_BTCO + ["TOTAL"])
     inflows = inflows.fillna(0) # btmx missing data for 2024-01-15, 2024-02-19
 
     cum = inflows[["Date"]]
@@ -114,7 +118,7 @@ def total_daily_inflows() -> Figure:
     total_daily_inflows = total_daily_inflows.fillna(0) # btmx missing data for 2024-01-15, 2024-02-19
 
     QUERY = "select * from inflows_btc_sma5"
-    sma5 = pd.DataFrame(c.execute(QUERY), columns=["Date"] + TICKERS_NO_BTCO + ["TOTAL"])
+    sma5 = pd.DataFrame(c.execute(QUERY), columns=["Date", "week", "day"] + TICKERS_NO_BTCO + ["TOTAL"])
     sma5 = sma5.fillna(0)
 
     fig = go.Figure()
