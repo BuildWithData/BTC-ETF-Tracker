@@ -86,6 +86,7 @@ if force is True:
 
     c_con.execute(DELETE_QUERY)
 
+
 for row in out.itertuples():
 
     INSERT_QUERY = "INSERT INTO holdings_btc VALUES ("
