@@ -98,4 +98,3 @@ for row in out.itertuples():
 
 conn_con.commit()
 conn_con.close()
-conn_raw.close()
