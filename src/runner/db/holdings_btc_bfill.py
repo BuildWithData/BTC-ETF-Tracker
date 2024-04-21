@@ -32,9 +32,6 @@ ref_date = args.date
 # READ
 query = "select * from holdings_btc"
 
-if ref_date is not None:
-    query += f" where ref_date = '{ref_date}'"
-
 data = list(c.execute(query))
 # TODO: this should be dynamic
 df = pd.DataFrame(data, columns=["ref_date", "week", "day"] + TICKERS)
@@ -43,6 +40,9 @@ df = pd.DataFrame(data, columns=["ref_date", "week", "day"] + TICKERS)
 # PARSE
 out = df.fillna(method="ffill")
 out["TOTAL"] = out.iloc[:, 3:].sum(axis=1)
+
+if ref_date is not None:
+    out = out[out.ref_date == ref_date]
 
 if out.empty:
     LOGGER.warning(f"Found no data for {ref_date}")
