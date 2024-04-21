@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
-from datetime import datetime
 from datetime import date
+from datetime import datetime
 import os
 import pandas as pd
 from pathlib import Path
