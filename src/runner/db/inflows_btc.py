@@ -15,6 +15,7 @@ LOGGER.addHandler(s_handler)
 
 parser = argparse.ArgumentParser(description="update table inflows_btc")
 parser.add_argument("-d", "--date", help="target date", required=False)
+parser.add_argument("-f", "--force", help="force loading even if data have been already written for yyyy-mm-dd", action="store_const", const=True)
 
 conn = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
 c = conn.cursor()
@@ -23,6 +24,7 @@ c = conn.cursor()
 # INPUTS
 args = parser.parse_args()
 ref_date = args.date
+force = args.force
 
 QUERY = "select * from holdings_btc"
 
@@ -48,6 +50,16 @@ if ref_date is not None:
 
 ##################
 # LOAD
+if force is True:
+
+    DELETE_QUERY = "DELETE FROM inflows_btc "
+
+    if ref_date is not None:
+        DELETE_QUERY += f"WHERE ref_date = '{ref_date}'"
+
+    c.execute(DELETE_QUERY)
+
+
 for row in out.itertuples():
 
     INSERT_QUERY = "INSERT INTO inflows_btc VALUES ("
