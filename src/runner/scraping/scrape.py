@@ -34,6 +34,7 @@ services = [
 
 ]
 
+# TODO: str(s) not working
 _TICKERS = [s.__str__() for s in services]
 
 parser = argparse.ArgumentParser(
@@ -63,6 +64,7 @@ if tickers is not None:
         if t not in _TICKERS:
             raise ValueError(f"Invalid ticker: {t}")
 
+    # TODO: str(s) not working
     services = [s for s in services if s.__str__() in tickers]
 
 run_date = date.today().isoformat()
