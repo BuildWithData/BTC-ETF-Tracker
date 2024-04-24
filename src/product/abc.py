@@ -34,6 +34,10 @@ class Products(ABC):
     def __repr__(self):
         return self.__class__.__name__
 
+    @classmethod
+    def __str__(cls):
+        return cls.__name__
+
     @property
     @abstractmethod
     def url(self):

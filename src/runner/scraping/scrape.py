@@ -1,3 +1,4 @@
+import argparse
 from datetime import date
 import logging
 from product.etp.arkb import ARKB
@@ -19,10 +20,6 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
-
-MAX_RETRIES = 10
-RETRY_SLEEP = 0.5 # minutes
-
 services = [
 
     ARKB,
@@ -36,6 +33,39 @@ services = [
     IBIT
 
 ]
+
+# TODO: str(s) not working
+_TICKERS = [s.__str__() for s in services]
+
+parser = argparse.ArgumentParser(
+    description="scrape data from issuer's websites, available tickers are:\n\n{}".format(", ".join(_TICKERS)),
+    formatter_class=argparse.RawTextHelpFormatter
+)
+parser.add_argument(
+    "-t",
+    "--tickers",
+    help="scrape data for target tickers only",
+    nargs="+",
+    required=False
+)
+
+MAX_RETRIES = 10
+RETRY_SLEEP = 0.5 # minutes
+
+
+##############
+# INPUTS
+args = parser.parse_args()
+tickers = args.tickers
+
+if tickers is not None:
+
+    for t in tickers:
+        if t not in _TICKERS:
+            raise ValueError(f"Invalid ticker: {t}")
+
+    # TODO: str(s) not working
+    services = [s for s in services if s.__str__() in tickers]
 
 run_date = date.today().isoformat()
 
