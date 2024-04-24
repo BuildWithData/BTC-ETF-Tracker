@@ -48,6 +48,13 @@ parser.add_argument(
     nargs="+",
     required=False
 )
+parser.add_argument(
+    "-it",
+    "--ignore-tickers",
+    help="skip scraping for target tickers",
+    nargs="+",
+    required=False
+)
 
 MAX_RETRIES = 10
 RETRY_SLEEP = 0.5 # minutes
@@ -57,6 +64,7 @@ RETRY_SLEEP = 0.5 # minutes
 # INPUTS
 args = parser.parse_args()
 tickers = args.tickers
+ignore_tickers = args.ignore_tickers
 
 if tickers is not None:
 
@@ -66,6 +74,15 @@ if tickers is not None:
 
     # TODO: str(s) not working
     services = [s for s in services if s.__str__() in tickers]
+
+if ignore_tickers is not None:
+
+    for t in ignore_tickers:
+        if t not in _TICKERS:
+            raise ValueError(f"Invalid ticker: {t}")
+
+    # TODO: str(s) not working
+    services = [s for s in services if s.__str__() not in ignore_tickers]
 
 run_date = date.today().isoformat()
 
