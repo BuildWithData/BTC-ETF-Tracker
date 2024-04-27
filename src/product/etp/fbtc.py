@@ -109,7 +109,7 @@ class FBTC(ETP):
             ref_date_xls = content.loc[1]["FIDELITY WISE ORIGIN BITCOIN FUND"]
             for name, number in MONTH2NUMBER.items():
                 ref_date_xls = ref_date_xls.upper().replace(name, number)
-            ref_date_xls = ref_date_xls.replace("24", "2024")
+            ref_date_xls = ref_date_xls.replace("-2", "-202")
             ref_date_xls = datetime.strptime(ref_date_xls, "%d-%m-%Y").date().isoformat()
 
             n_shares = content.loc[2]["FIDELITY WISE ORIGIN BITCOIN FUND"]
