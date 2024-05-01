@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from time import sleep
 
 
-class HARVEST_ETH(ETP):
+class HB9439(ETP):
     """Harvest Global Investments"""
 
     def url(self):
@@ -22,7 +22,7 @@ class HARVEST_ETH(ETP):
         timestamp = datetime.today()
 
         options = Options()
-        options.add_argument('--headless')
+        #options.add_argument('--headless')
         driver = webdriver.Chrome()
 
         driver.get(self.url())
@@ -43,7 +43,7 @@ class HARVEST_ETH(ETP):
         driver.find_elements(By.CLASS_NAME, "row")[0].find_elements(By.TAG_NAME, "span")[3].click()
 
         section = driver.find_element(By.ID, "fundvirtualasset-etf").find_element(By.XPATH, '..')
-        section.find_elements(By.TAG_NAME, "span")[13].click()
+        section.find_elements(By.TAG_NAME, "span")[1].click()
 
         sleep(5)
         path = os.path.join(self.path(), self._file_name(timestamp))
