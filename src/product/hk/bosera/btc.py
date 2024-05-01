@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from time import sleep
 
 
-class BOSERA(ETP):
+class BB9008(ETP):
     """BOSERA"""
 
     def url(self, type_: str = None):
