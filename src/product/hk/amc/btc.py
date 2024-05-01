@@ -45,8 +45,8 @@ class AB9042(ETP):
         with open(path, "w") as f:
             f.write(driver.page_source)
 
-        holding_section = [s for s in driver.find_elements(By.TAG_NAME, 'section') if "holding details" in s.text.lower()][1]
         sleep(3)
+        holding_section = [s for s in driver.find_elements(By.TAG_NAME, 'section') if "holding details" in s.text.lower()][1]
         holding_section.find_element(By.TAG_NAME, "a").click()
         actual = Path(os.path.join(self.path(), self._xlsx_original_file_name()))
 
