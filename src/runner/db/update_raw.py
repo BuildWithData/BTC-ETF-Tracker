@@ -2,15 +2,7 @@ import argparse
 from datetime import date
 from datetime import timedelta
 import logging
-from product.etp.arkb import ARKB
-from product.etp.bitb import BITB
-from product.etp.brrr import BRRR
-from product.etp.btco import BTCO
-from product.etp.ezbc import EZBC
-from product.etp.fbtc import FBTC
-from product.etp.gbtc import GBTC
-from product.etp.hodl import HODL
-from product.etp.ibit import IBIT
+from product.us import TICKERS as US_TICKERS
 import sqlite3
 from utils.config import RAW_SCHEMA_PATH
 
@@ -28,19 +20,7 @@ parser.add_argument("-d", "--date", help="target date", required=False)
 conn = sqlite3.connect(RAW_SCHEMA_PATH)
 c = conn.cursor()
 
-services = [
-
-    ARKB,
-    BITB,
-    BRRR,
-    BTCO,
-    GBTC,
-    EZBC,
-    FBTC,
-    HODL,
-    IBIT
-
-]
+services = US_TICKERS
 
 ################
 # INPUTS
