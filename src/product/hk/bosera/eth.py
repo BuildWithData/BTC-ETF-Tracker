@@ -37,8 +37,41 @@ class BE9009(ETP):
     def scrape(self):
 
         timestamp = datetime.today()
-        options = Options()
 
+        #################
+        # webpage
+
+        # when scraping webpage only javascript code is returned
+        # let's get data from API
+        headers = {
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'en-US',
+            'Referer': 'http://www.bosera.com.hk/en-US/products/fund/detail/ETHL',
+        }
+
+        params = {
+            'fundCode': 'ETHL',
+        }
+
+        fund_information = requests.get(
+            self.url("api"),
+            params=params,
+            headers=headers,
+            verify=False,
+        )
+
+        fund_information.raise_for_status()
+
+        path = os.path.join(self.path(), self._file_name(timestamp, "json"))
+        path = Path(path)
+
+        self._create_path(path)
+        with open(path, "w") as f:
+            f.write(fund_information.text)
+
+        #################
+        # holdings
+        options = Options()
         options.add_experimental_option("prefs", {
                 "download.default_directory": self.path(),
         })
@@ -70,34 +103,6 @@ class BE9009(ETP):
             raise RuntimeError(f"File {actual} does not exist")
         new = os.path.join(self.path(), self._file_name(timestamp, "xlsx"))
         actual.rename(new)
-
-        # when scraping webpage only javascript code is returned
-        # let's get data from API
-        headers = {
-            'Accept': 'application/json, text/plain, */*',
-            'Accept-Language': 'en-US',
-            'Referer': 'http://www.bosera.com.hk/en-US/products/fund/detail/ETHL',
-        }
-
-        params = {
-            'fundCode': 'ETHL',
-        }
-
-        fund_information = requests.get(
-            self.url("api"),
-            params=params,
-            headers=headers,
-            verify=False,
-        )
-
-        fund_information.raise_for_status()
-
-        path = os.path.join(self.path(), self._file_name(timestamp, "json"))
-        path = Path(path)
-
-        self._create_path(path)
-        with open(path, "w") as f:
-            f.write(fund_information.text)
 
     def extract(self):
         raise NotImplementedError
