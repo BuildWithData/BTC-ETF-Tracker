@@ -12,12 +12,22 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
+_US_TICKERS = [s.__str__() for s in US_TICKERS]
 
-# TODO: str(s) not working
-_TICKERS = [s.__str__() for s in US_TICKERS]
+_dsc = """
+
+scrape data from issuer's websites, available tickers are:
+
+# US
+{}
+
+""".format(
+    ", ".join(_US_TICKERS)
+)
+
 
 parser = argparse.ArgumentParser(
-    description="scrape data from issuer's websites, available tickers are:\n\n{}".format(", ".join(_TICKERS)),
+    description=_dsc,
     formatter_class=argparse.RawTextHelpFormatter
 )
 parser.add_argument(
@@ -25,7 +35,7 @@ parser.add_argument(
     "--market",
     help="market where etfs are traded",
     required=True,
-    choices=["us", "hk"]
+    choices=["us"]
 )
 parser.add_argument(
     "-t",
@@ -55,12 +65,7 @@ ignore_tickers = args.ignore_tickers
 
 if market == "us":
     services = US_TICKERS
-
-elif market == "hk":
-    raise NotImplementedError
-
-else:
-    raise ValueError(f"Invalid market: {market}")
+    _TICKERS = _US_TICKERS
 
 if tickers is not None:
 
