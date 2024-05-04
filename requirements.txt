@@ -1,5 +1,6 @@
 beautifulsoup4
 dash
+flake8
 pandas
 pyyaml
 requests
