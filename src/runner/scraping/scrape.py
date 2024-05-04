@@ -1,15 +1,7 @@
 import argparse
 from datetime import date
 import logging
-from product.etp.arkb import ARKB
-from product.etp.bitb import BITB
-from product.etp.brrr import BRRR
-from product.etp.btco import BTCO
-from product.etp.ezbc import EZBC
-from product.etp.fbtc import FBTC
-from product.etp.gbtc import GBTC
-from product.etp.hodl import HODL
-from product.etp.ibit import IBIT
+from product.us import TICKERS as US_TICKERS
 from time import sleep
 
 
@@ -20,26 +12,20 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
-services = [
-
-    ARKB,
-    BITB,
-    BRRR,
-    BTCO,
-    GBTC,
-    EZBC,
-    FBTC,
-    HODL,
-    IBIT
-
-]
 
 # TODO: str(s) not working
-_TICKERS = [s.__str__() for s in services]
+_TICKERS = [s.__str__() for s in US_TICKERS]
 
 parser = argparse.ArgumentParser(
     description="scrape data from issuer's websites, available tickers are:\n\n{}".format(", ".join(_TICKERS)),
     formatter_class=argparse.RawTextHelpFormatter
+)
+parser.add_argument(
+    "-m",
+    "--market",
+    help="market where etfs are traded",
+    required=True,
+    choices=["us", "hk"]
 )
 parser.add_argument(
     "-t",
@@ -63,8 +49,18 @@ RETRY_SLEEP = 0.5 # minutes
 ##############
 # INPUTS
 args = parser.parse_args()
+market = args.market
 tickers = args.tickers
 ignore_tickers = args.ignore_tickers
+
+if market == "us":
+    services = US_TICKERS
+
+elif market == "hk":
+    raise NotImplementedError
+
+else:
+    raise ValueError(f"Invalid market: {market}")
 
 if tickers is not None:
 
@@ -85,6 +81,9 @@ if ignore_tickers is not None:
     services = [s for s in services if s.__str__() not in ignore_tickers]
 
 run_date = date.today().isoformat()
+
+####################
+# SCRAPING
 
 for S in services:
 
