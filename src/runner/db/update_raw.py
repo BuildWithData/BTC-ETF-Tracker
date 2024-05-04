@@ -2,7 +2,7 @@ import argparse
 from datetime import date
 from datetime import timedelta
 import logging
-from product.us import TICKERS
+from product.us import TICKERS as US_TICKERS
 import sqlite3
 from utils.config import RAW_SCHEMA_PATH
 
@@ -20,7 +20,7 @@ parser.add_argument("-d", "--date", help="target date", required=False)
 conn = sqlite3.connect(RAW_SCHEMA_PATH)
 c = conn.cursor()
 
-services = TICKERS
+services = US_TICKERS
 
 ################
 # INPUTS
