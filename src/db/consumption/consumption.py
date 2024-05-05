@@ -52,3 +52,6 @@ INSERT INTO products VALUES
 c.execute(PRODUCTS_CREATE)
 c.execute(PRODUCTS_INSERT)
 LOGGER.info("Created table PRODUCTS")
+
+conn.commit()
+conn.close()
