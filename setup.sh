@@ -7,7 +7,15 @@ export PYTHONPATH=$ROOT_DIRECTORY/src
 
 echo "############################"
 DATA_PATH=$(cat config.yaml | grep data | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
+DB_PATH=$(cat config.yaml | grep db | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
+
+if [ -z "$DB_PATH" ]
+then
+    DB_PATH=$DATA_PATH/db
+fi
 
 echo "Setting up storage..."
 mkdir -pv $DATA_PATH/raw
-mkdir -pv $DATA_PATH/db
+
+echo "Setting up db..."
+mkdir -pv $DB_PATH
