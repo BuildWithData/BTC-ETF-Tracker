@@ -6,13 +6,13 @@ import plotly.express as px
 from plotly.graph_objects import Figure
 import plotly.graph_objects as go
 import sqlite3
-from utils.config import CONSUMPTION_SCHEMA_PATH
+from utils.config import CONSUMPTION_US_SCHEMA_PATH
 from utils.constants import TICKERS
 from utils.constants import TICKERS_NO_BTCO
 import yfinance as yf
 
 
-conn = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
+conn = sqlite3.connect(CONSUMPTION_US_SCHEMA_PATH)
 c = conn.cursor()
 
 

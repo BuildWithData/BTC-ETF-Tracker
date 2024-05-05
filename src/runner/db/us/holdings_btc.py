@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import sqlite3
 import sys
-from utils.config import CONSUMPTION_SCHEMA_PATH
+from utils.config import CONSUMPTION_US_SCHEMA_PATH
 from utils.config import RAW_SCHEMA_PATH
 
 
@@ -24,7 +24,7 @@ parser.add_argument("-f", "--force", help="force loading even if data have been 
 conn_raw = sqlite3.connect(RAW_SCHEMA_PATH)
 c_raw = conn_raw.cursor()
 
-conn_con = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
+conn_con = sqlite3.connect(CONSUMPTION_US_SCHEMA_PATH)
 c_con = conn_con.cursor()
 
 QUERIES = {

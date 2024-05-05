@@ -2,9 +2,13 @@ import argparse
 import logging
 import pandas as pd
 import sqlite3
-from utils.config import CONSUMPTION_SCHEMA_PATH
+import sys
+from utils.config import CONSUMPTION_US_SCHEMA_PATH
 from utils.constants import TICKERS
+import warnings
 
+
+warnings.simplefilter(action='ignore', category=FutureWarning) # fillna
 
 LOGGER = logging.getLogger()
 s_handler = logging.StreamHandler()
@@ -13,46 +17,44 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
-parser = argparse.ArgumentParser(description="update table inflows_btc")
+parser = argparse.ArgumentParser(description="update table holdings_btc_bfill")
 parser.add_argument("-d", "--date", help="target date", required=False)
 parser.add_argument("-f", "--force", help="force loading even if data have been already written for yyyy-mm-dd", action="store_const", const=True)
 
-conn = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
+conn = sqlite3.connect(CONSUMPTION_US_SCHEMA_PATH)
 c = conn.cursor()
 
-###################
+################
 # INPUTS
 args = parser.parse_args()
 ref_date = args.date
 force = args.force
 
-QUERY = "select * from holdings_btc"
-
-##################
+################
 # READ
-extracted = pd.DataFrame(
-    c.execute(QUERY),
-    columns=["ref_date", "week", "day"] + TICKERS,
-)
+query = "select * from holdings_btc"
 
-##################
+data = list(c.execute(query))
+# TODO: this should be dynamic
+df = pd.DataFrame(data, columns=["ref_date", "week", "day"] + TICKERS)
+
+################
 # PARSE
-out = (extracted.iloc[:, 3:] - extracted.iloc[:, 3:].shift(1)).round(2)
-out["ref_date"] = extracted.ref_date
-out["week"] = extracted.week
-out["day"] = extracted.day
-out = out[out["ref_date"] > "2024-02-23"]
-out["TOTAL"] = out.iloc[:, :-3].sum(axis=1).round(2)
-out = out[["ref_date", "week", "day"] + TICKERS + ["TOTAL"]]
+out = df.fillna(method="ffill")
+out["TOTAL"] = out.iloc[:, 3:].sum(axis=1)
 
 if ref_date is not None:
-    out = out[out["ref_date"] == ref_date]
+    out = out[out.ref_date == ref_date]
 
-##################
+if out.empty:
+    LOGGER.warning(f"Found no data for {ref_date}")
+    sys.exit(1)
+
+################
 # LOAD
 if force is True:
 
-    DELETE_QUERY = "DELETE FROM inflows_btc "
+    DELETE_QUERY = "DELETE FROM holdings_btc_bfill "
 
     if ref_date is not None:
         DELETE_QUERY += f"WHERE ref_date = '{ref_date}'"
@@ -62,7 +64,7 @@ if force is True:
 
 for row in out.itertuples():
 
-    INSERT_QUERY = "INSERT INTO inflows_btc VALUES ("
+    INSERT_QUERY = "INSERT INTO holdings_btc_bfill VALUES ("
     INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
     for v in row[4:]:
@@ -79,6 +81,7 @@ for row in out.itertuples():
 
     except sqlite3.IntegrityError:
         LOGGER.error(f"Data for {row[1]} already found in table")
+
 
 conn.commit()
 conn.close()

@@ -1,7 +1,7 @@
 import logging
 import pandas as pd
 import sqlite3
-from utils.config import CONSUMPTION_SCHEMA_PATH
+from utils.config import CONSUMPTION_US_SCHEMA_PATH
 from utils.constants import TICKERS_NO_BTCO as TICKERS
 
 
@@ -12,7 +12,7 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
-conn = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
+conn = sqlite3.connect(CONSUMPTION_US_SCHEMA_PATH)
 c = conn.cursor()
 
 #################

@@ -3,12 +3,12 @@ from dash import dash_table
 from dash import dcc
 from dash import html
 import pandas as pd
-from visualization.home import btc_daily_price
-from visualization.home import cumulative_inflows
-from visualization.home import cumulative_outflows_GBTC
-from visualization.home import current_holdings
-from visualization.home import daily_inflows
-from visualization.home import total_daily_inflows
+from visualization.us import btc_daily_price
+from visualization.us import cumulative_inflows
+from visualization.us import cumulative_outflows_GBTC
+from visualization.us import current_holdings
+from visualization.us import daily_inflows
+from visualization.us import total_daily_inflows
 
 
 pd.options.mode.chained_assignment = None

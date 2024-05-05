@@ -17,5 +17,6 @@ DATABASE_BASE_PATH = _config["Path"]["db"]
 if DATABASE_BASE_PATH == "" or DATABASE_BASE_PATH is None:
     DATABASE_BASE_PATH = os.path.join(DATA_BASE_PATH, "db")
 
-CONSUMPTION_SCHEMA_PATH = os.path.join(DATABASE_BASE_PATH, "consumption")
+CONSUMPTION_SCHEMA_PATH = os.path.join(DATABASE_BASE_PATH, "consumption", "consumption")
+CONSUMPTION_US_SCHEMA_PATH = os.path.join(DATABASE_BASE_PATH, "consumption", "us")
 RAW_SCHEMA_PATH = os.path.join(DATABASE_BASE_PATH, "raw")
