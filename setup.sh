@@ -9,8 +9,8 @@ echo "############################"
 DATA_PATH=$(cat config.yaml | grep data | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
 DB_PATH=$(cat config.yaml | grep db | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
 
-if [ -z "${DB_PATH}" ]
-    then
+if [ -z "$DB_PATH" ]
+then
     DB_PATH=$DATA_PATH/db
 fi
 
