@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import sqlite3
 import sys
-from utils.config import CONSUMPTION_SCHEMA_PATH
+from utils.config import CONSUMPTION_US_SCHEMA_PATH
 from utils.config import RAW_SCHEMA_PATH
 
 
@@ -24,7 +24,7 @@ parser.add_argument("-f", "--force", help="force loading even if data have been 
 conn_raw = sqlite3.connect(RAW_SCHEMA_PATH)
 c_raw = conn_raw.cursor()
 
-conn_con = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
+conn_con = sqlite3.connect(CONSUMPTION_US_SCHEMA_PATH)
 c_con = conn_con.cursor()
 
 QUERIES = {
@@ -79,7 +79,7 @@ if out.empty:
 # LOAD
 if force is True:
 
-    DELETE_QUERY = "DELETE FROM holdings_btc_us "
+    DELETE_QUERY = "DELETE FROM holdings_btc "
 
     if ref_date is not None:
         DELETE_QUERY += f"WHERE ref_date = '{ref_date}'"
@@ -89,7 +89,7 @@ if force is True:
 
 for row in out.itertuples():
 
-    INSERT_QUERY = "INSERT INTO holdings_btc_us VALUES ("
+    INSERT_QUERY = "INSERT INTO holdings_btc VALUES ("
     INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
     for v in row[4:]:
