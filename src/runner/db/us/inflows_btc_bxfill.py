@@ -3,7 +3,7 @@ import logging
 from numpy import NaN
 import pandas as pd
 import sqlite3
-from utils.config import CONSUMPTION_SCHEMA_PATH
+from utils.config import CONSUMPTION_US_SCHEMA_PATH
 from utils.constants import TICKERS
 import warnings
 
@@ -17,15 +17,15 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
-conn = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
+conn = sqlite3.connect(CONSUMPTION_US_SCHEMA_PATH)
 c = conn.cursor()
 
 ######################
 # READ
-QUERY = "select * from inflows_btc_bfill_us"
+QUERY = "select * from inflows_btc_bfill"
 inflows = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + TICKERS + ["TOTAL"])
 
-QUERY = "select * from holdings_btc_bfill_us"
+QUERY = "select * from holdings_btc_bfill"
 holdings = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + TICKERS + ["TOTAL"])
 
 PATH_BTMX = '/Users/bwd/Code-From-Videos/btc_etf_holdings/data/raw/external/bitmex/btc_flow.csv'
@@ -70,12 +70,12 @@ out = out[["ref_date", "week", "day"] + [t for t in TICKERS if t != "BTCO"] + ["
 ##################
 # LOAD
 
-CLEAN_TABLE_QUERY = "DELETE FROM inflows_btc_bxfill_us"
+CLEAN_TABLE_QUERY = "DELETE FROM inflows_btc_bxfill"
 c.execute(CLEAN_TABLE_QUERY)
 
 for row in out.itertuples():
 
-    INSERT_QUERY = "INSERT INTO inflows_btc_bxfill_us VALUES ("
+    INSERT_QUERY = "INSERT INTO inflows_btc_bxfill VALUES ("
     INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
     for v in row[4:]:
