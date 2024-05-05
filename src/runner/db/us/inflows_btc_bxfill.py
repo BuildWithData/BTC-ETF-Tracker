@@ -22,10 +22,10 @@ c = conn.cursor()
 
 ######################
 # READ
-QUERY = "select * from inflows_btc_bfill"
+QUERY = "select * from inflows_btc_bfill_us"
 inflows = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + TICKERS + ["TOTAL"])
 
-QUERY = "select * from holdings_btc_bfill"
+QUERY = "select * from holdings_btc_bfill_us"
 holdings = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + TICKERS + ["TOTAL"])
 
 PATH_BTMX = '/Users/bwd/Code-From-Videos/btc_etf_holdings/data/raw/external/bitmex/btc_flow.csv'
@@ -70,12 +70,12 @@ out = out[["ref_date", "week", "day"] + [t for t in TICKERS if t != "BTCO"] + ["
 ##################
 # LOAD
 
-CLEAN_TABLE_QUERY = "DELETE FROM inflows_btc_bxfill"
+CLEAN_TABLE_QUERY = "DELETE FROM inflows_btc_bxfill_us"
 c.execute(CLEAN_TABLE_QUERY)
 
 for row in out.itertuples():
 
-    INSERT_QUERY = "INSERT INTO inflows_btc_bxfill VALUES ("
+    INSERT_QUERY = "INSERT INTO inflows_btc_bxfill_us VALUES ("
     INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
     for v in row[4:]:

@@ -17,7 +17,7 @@ c = conn.cursor()
 
 #################
 # READ
-QUERY = "select * from inflows_btc_bxfill"
+QUERY = "select * from inflows_btc_bxfill_us"
 df = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + TICKERS + ["TOTAL"])
 
 #################
@@ -32,12 +32,12 @@ out["TOTAL"] = out.TOTAL.rolling(5).mean().round(2)
 ##################
 # LOAD
 
-CLEAN_TABLE_QUERY = "DELETE FROM inflows_btc_sma5"
+CLEAN_TABLE_QUERY = "DELETE FROM inflows_btc_sma5_us"
 c.execute(CLEAN_TABLE_QUERY)
 
 for row in out.itertuples():
 
-    INSERT_QUERY = "INSERT INTO inflows_btc_sma5 VALUES ("
+    INSERT_QUERY = "INSERT INTO inflows_btc_sma5_us VALUES ("
     INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
     for v in row[4:]:

@@ -26,7 +26,7 @@ args = parser.parse_args()
 ref_date = args.date
 force = args.force
 
-QUERY = "select * from holdings_btc_bfill"
+QUERY = "select * from holdings_btc_bfill_us"
 
 ##################
 # READ
@@ -51,7 +51,7 @@ if ref_date is not None:
 # LOAD
 if force is True:
 
-    DELETE_QUERY = "DELETE FROM inflows_btc_bfill "
+    DELETE_QUERY = "DELETE FROM inflows_btc_bfill_us "
 
     if ref_date is not None:
         DELETE_QUERY += f"WHERE ref_date = '{ref_date}'"
@@ -61,7 +61,7 @@ if force is True:
 
 for row in out.itertuples():
 
-    INSERT_QUERY = "INSERT INTO inflows_btc_bfill VALUES ("
+    INSERT_QUERY = "INSERT INTO inflows_btc_bfill_us VALUES ("
     INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
     for v in row[4:]:
