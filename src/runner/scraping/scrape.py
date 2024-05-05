@@ -2,6 +2,8 @@ import argparse
 from datetime import date
 import logging
 from product.us import TICKERS as US_TICKERS
+from product.hk import BTC_TICKERS as _HK_BTC_TICKERS
+from product.hk import ETH_TICKERS as _HK_ETH_TICKERS
 from time import sleep
 
 
@@ -12,7 +14,9 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
+HK_TICKERS = _HK_BTC_TICKERS + _HK_ETH_TICKERS
 _US_TICKERS = [s.__str__() for s in US_TICKERS]
+_HK_TICKERS = [s.__str__() for s in HK_TICKERS]
 
 _dsc = """
 
@@ -21,8 +25,12 @@ scrape data from issuer's websites, available tickers are:
 # US
 {}
 
+# HK
+{}
+
 """.format(
-    ", ".join(_US_TICKERS)
+    ", ".join(_US_TICKERS),
+    ", ".join(_HK_TICKERS)
 )
 
 
@@ -35,7 +43,7 @@ parser.add_argument(
     "--market",
     help="market where etfs are traded",
     required=True,
-    choices=["us"]
+    choices=["us", "hk"]
 )
 parser.add_argument(
     "-t",
@@ -66,6 +74,10 @@ ignore_tickers = args.ignore_tickers
 if market == "us":
     services = US_TICKERS
     _TICKERS = _US_TICKERS
+
+elif market == "hk":
+    services = HK_TICKERS
+    _TICKERS = _HK_TICKERS
 
 if tickers is not None:
 
