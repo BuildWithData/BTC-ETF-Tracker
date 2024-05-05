@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 import sqlite3
 import sys
-from utils.config import CONSUMPTION_SCHEMA_PATH
+from utils.config import CONSUMPTION_US_SCHEMA_PATH
 from utils.constants import TICKERS
 import warnings
 
@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser(description="update table holdings_btc_bfill")
 parser.add_argument("-d", "--date", help="target date", required=False)
 parser.add_argument("-f", "--force", help="force loading even if data have been already written for yyyy-mm-dd", action="store_const", const=True)
 
-conn = sqlite3.connect(CONSUMPTION_SCHEMA_PATH)
+conn = sqlite3.connect(CONSUMPTION_US_SCHEMA_PATH)
 c = conn.cursor()
 
 ################
@@ -32,7 +32,7 @@ force = args.force
 
 ################
 # READ
-query = "select * from holdings_btc_us"
+query = "select * from holdings_btc"
 
 data = list(c.execute(query))
 # TODO: this should be dynamic
@@ -54,7 +54,7 @@ if out.empty:
 # LOAD
 if force is True:
 
-    DELETE_QUERY = "DELETE FROM holdings_btc_bfill_us "
+    DELETE_QUERY = "DELETE FROM holdings_btc_bfill "
 
     if ref_date is not None:
         DELETE_QUERY += f"WHERE ref_date = '{ref_date}'"
@@ -64,7 +64,7 @@ if force is True:
 
 for row in out.itertuples():
 
-    INSERT_QUERY = "INSERT INTO holdings_btc_bfill_us VALUES ("
+    INSERT_QUERY = "INSERT INTO holdings_btc_bfill VALUES ("
     INSERT_QUERY += f"'{row[1]}', '{row[2]}', '{row[3]}'"
 
     for v in row[4:]:
