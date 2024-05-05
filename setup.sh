@@ -19,3 +19,4 @@ mkdir -pv $DATA_PATH/raw
 
 echo "Setting up db..."
 mkdir -pv $DB_PATH
+mkdir -pv $DB_PATH/consumption
