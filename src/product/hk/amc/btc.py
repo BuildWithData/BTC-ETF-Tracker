@@ -33,7 +33,7 @@ class AB9042(ETP):
         options = Options()
 
         options.add_experimental_option("prefs", {
-                "download.default_directory": self.path(),
+            "download.default_directory": self.path(),
         })
 #        options.add_argument('--headless')
         driver = webdriver.Chrome(options)
@@ -67,7 +67,7 @@ class AB9042(ETP):
             fn_xlsx = ".".join([ts, "xlsx"])
             df = self.files[fn_xlsx]
 
-            ref_date_xlsx = df.iloc[0, 2]
+            ref_date_xlsx = df.iloc[0, 2].replace("/", "-")
             total_nav = df.iloc[1, 2]
             cash = df.iloc[2, 2]
             market_price = df.iloc[5, 6]
