@@ -384,7 +384,7 @@ LOGGER.info("Created table HODL")
 #                          AB9042
 ##################################################################
 
-CREATE_AB9042 = """
+CREATE_AB9042_XLSX = """
 
 CREATE TABLE IF NOT EXISTS ab9042_xlsx (
 
@@ -400,7 +400,7 @@ CREATE TABLE IF NOT EXISTS ab9042_xlsx (
 
 """
 
-c.execute(CREATE_AB9042)
+c.execute(CREATE_AB9042_XLSX)
 c.execute("INSERT into ab9042_xlsx VALUES ('','2024-04-29',0,0,0,0)")
 LOGGER.info("Created table AB9042_XLSX")
 
@@ -408,7 +408,7 @@ LOGGER.info("Created table AB9042_XLSX")
 #                          AE9046
 ##################################################################
 
-CREATE_AE9046 = """
+CREATE_AE9046_XLSX = """
 
 CREATE TABLE IF NOT EXISTS ae9046_xlsx (
 
@@ -424,7 +424,7 @@ CREATE TABLE IF NOT EXISTS ae9046_xlsx (
 
 """
 
-c.execute(CREATE_AE9046)
+c.execute(CREATE_AE9046_XLSX)
 c.execute("INSERT into ae9046_xlsx VALUES ('','2024-04-29',0,0,0,0)")
 LOGGER.info("Created table AE9046_XLSX")
 
