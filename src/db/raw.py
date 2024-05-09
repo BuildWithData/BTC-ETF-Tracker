@@ -401,7 +401,7 @@ CREATE TABLE IF NOT EXISTS ab9042_xlsx (
 """
 
 c.execute(CREATE_AB9042)
-c.execute("INSERT into ab9042_xlsx VALUES ('','2024-05-01',0,0,0,0)")
+c.execute("INSERT into ab9042_xlsx VALUES ('','2024-04-29',0,0,0,0)")
 LOGGER.info("Created table AB9042_XLSX")
 
 ##################################################################
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS ae9046_xlsx (
 """
 
 c.execute(CREATE_AE9046)
-c.execute("INSERT into ae9046_xlsx VALUES ('','2024-05-01',0,0,0,0)")
+c.execute("INSERT into ae9046_xlsx VALUES ('','2024-04-29',0,0,0,0)")
 LOGGER.info("Created table AE9046_XLSX")
 
 ####################################################################
