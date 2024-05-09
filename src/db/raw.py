@@ -432,7 +432,7 @@ LOGGER.info("Created table AE9046_XLSX")
 #                          BB9008
 ##################################################################
 
-CREATE_BB9008 = """
+CREATE_BB9008_XLSX = """
 
 CREATE TABLE IF NOT EXISTS bb9008_xlsx (
 
@@ -447,7 +447,7 @@ CREATE TABLE IF NOT EXISTS bb9008_xlsx (
 
 """
 
-c.execute(CREATE_BB9008)
+c.execute(CREATE_BB9008_XLSX)
 c.execute("INSERT into bb9008_xlsx VALUES ('','2024-04-29',0,0,0,0)")
 LOGGER.info("Created table bb90082_XLSX")
 
