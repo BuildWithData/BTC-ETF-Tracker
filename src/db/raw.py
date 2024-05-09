@@ -428,6 +428,29 @@ c.execute(CREATE_AE9046_XLSX)
 c.execute("INSERT into ae9046_xlsx VALUES ('','2024-04-29',0,0,0,0)")
 LOGGER.info("Created table AE9046_XLSX")
 
+##################################################################
+#                          BB9008
+##################################################################
+
+CREATE_BB9008 = """
+
+CREATE TABLE IF NOT EXISTS bb9008_xlsx (
+
+    file_name               TEXT    NOT NULL,
+    ref_date                TEXT    NOT NULL,
+    market_value            REAL,
+    market_price            REAL,
+    n_coins                 REAL,
+
+    PRIMARY KEY (ref_date)
+)
+
+"""
+
+c.execute(CREATE_BB9008)
+c.execute("INSERT into bb9008_xlsx VALUES ('','2024-04-29',0,0,0,0)")
+LOGGER.info("Created table bb90082_XLSX")
+
 ####################################################################
 conn.commit()
 conn.close()
