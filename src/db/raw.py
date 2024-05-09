@@ -391,7 +391,7 @@ CREATE TABLE IF NOT EXISTS ab9042_xlsx (
     file_name               TEXT    NOT NULL,
     ref_date                TEXT    NOT NULL,
     total_nav               REAL,
-    cash                    INT,
+    cash                    REAL,
     market_price            REAL,
     n_coins                 REAL,
 
@@ -415,7 +415,7 @@ CREATE TABLE IF NOT EXISTS ae9046_xlsx (
     file_name               TEXT    NOT NULL,
     ref_date                TEXT    NOT NULL,
     total_nav               REAL,
-    cash                    INT,
+    cash                    REAL,
     market_price            REAL,
     n_coins                 REAL,
 
