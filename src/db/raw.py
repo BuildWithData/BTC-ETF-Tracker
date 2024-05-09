@@ -448,8 +448,31 @@ CREATE TABLE IF NOT EXISTS bb9008_xlsx (
 """
 
 c.execute(CREATE_BB9008_XLSX)
-c.execute("INSERT into bb9008_xlsx VALUES ('','2024-04-29',0,0,0,0)")
-LOGGER.info("Created table bb90082_XLSX")
+c.execute("INSERT into bb9008_xlsx VALUES ('','2024-04-29',0,0,0)")
+LOGGER.info("Created table BB90082_XLSX")
+
+##################################################################
+#                          BE9009
+##################################################################
+
+CREATE_BE9009_XLSX = """
+
+CREATE TABLE IF NOT EXISTS be9009_xlsx (
+
+    file_name               TEXT    NOT NULL,
+    ref_date                TEXT    NOT NULL,
+    market_value            REAL,
+    market_price            REAL,
+    n_coins                 REAL,
+
+    PRIMARY KEY (ref_date)
+)
+
+"""
+
+c.execute(CREATE_BE9009_XLSX)
+c.execute("INSERT into be9009_xlsx VALUES ('','2024-04-29',0,0,0)")
+LOGGER.info("Created table BE9009_XLSX")
 
 ####################################################################
 conn.commit()
