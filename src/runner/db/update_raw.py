@@ -3,8 +3,6 @@ from datetime import date
 from datetime import timedelta
 import logging
 from product.us import TICKERS as US_TICKERS
-from product.hk import BTC_TICKERS as HK_BTC_TICKERS
-from product.hk import ETH_TICKERS as HK_ETH_TICKERS
 import sqlite3
 from utils.config import RAW_SCHEMA_PATH
 
@@ -23,7 +21,6 @@ conn = sqlite3.connect(RAW_SCHEMA_PATH)
 c = conn.cursor()
 
 services = US_TICKERS
-services = HK_BTC_TICKERS + HK_ETH_TICKERS
 
 ################
 # INPUTS
