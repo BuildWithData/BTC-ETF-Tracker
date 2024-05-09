@@ -111,7 +111,7 @@ class Products(ABC):
             elif fe == "csv":
                 data = pd.read_csv(path)
 
-            elif fe == "xls":
+            elif fe in ("xls", "xlsx"):
                 data = pd.read_excel(path)
 
             elif fe == "json":
