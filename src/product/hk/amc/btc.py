@@ -1,10 +1,12 @@
 from datetime import datetime
 import os
+import pandas as pd
 from pathlib import Path
 from product.abc import ETP
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from sqlite3 import Connection
 from time import sleep
 
 
@@ -31,7 +33,7 @@ class AB9042(ETP):
         options = Options()
 
         options.add_experimental_option("prefs", {
-                "download.default_directory": self.path(),
+            "download.default_directory": self.path(),
         })
 #        options.add_argument('--headless')
         driver = webdriver.Chrome(options)
@@ -57,7 +59,37 @@ class AB9042(ETP):
         actual.rename(new)
 
     def extract(self):
-        raise NotImplementedError
 
-    def update_db(self):
-        raise NotImplementedError
+        file_timestamps = set([k.split(".")[0] for k in self.files.keys()])
+
+        for ts in file_timestamps:
+
+            fn_xlsx = ".".join([ts, "xlsx"])
+            df = self.files[fn_xlsx]
+
+            ref_date_xlsx = df.iloc[0, 2].replace("/", "-")
+            total_nav = df.iloc[1, 2]
+            cash = df.iloc[2, 2]
+            market_price = df.iloc[5, 6]
+
+            n_coins = round((total_nav - cash) / market_price, 2)
+
+            self.extracted[ts] = {
+                "file_name_xlsx": fn_xlsx,
+                "ref_date_xlsx": ref_date_xlsx,
+                "total_nav": total_nav,
+                "cash": cash,
+                "market_price": market_price,
+                "n_coins": n_coins
+            }
+
+    def update_db(self, con: Connection) -> None:
+
+        df = pd.DataFrame(self.extracted.values())
+
+        ##################
+        xlsx = df.rename({"file_name_xlsx": "file_name", "ref_date_xlsx": "ref_date"}, axis=1)
+        table = "ab9042_xlsx"
+        keys = "ref_date"
+
+        self._dump(xlsx, table, keys, con)
