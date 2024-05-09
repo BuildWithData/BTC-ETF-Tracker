@@ -1,6 +1,7 @@
 beautifulsoup4
 dash
 flake8
+openpyxl
 pandas
 pyyaml
 requests
