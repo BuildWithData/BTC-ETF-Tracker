@@ -474,6 +474,50 @@ c.execute(CREATE_BE9009_XLSX)
 c.execute("INSERT into be9009_xlsx VALUES ('','2024-04-29',0,0,0)")
 LOGGER.info("Created table BE9009_XLSX")
 
+##################################################################
+#                          HB9439
+##################################################################
+
+CREATE_HB9439 = """
+
+CREATE TABLE IF NOT EXISTS hb9439 (
+
+    file_name               TEXT    NOT NULL,
+    ref_date                TEXT    NOT NULL,
+    weight_virtual_asset    REAL,
+    fund_size               REAL,
+
+    PRIMARY KEY (ref_date)
+)
+
+"""
+
+c.execute(CREATE_HB9439)
+c.execute("INSERT into hb9439 VALUES ('','2024-04-29',0,0)")
+LOGGER.info("Created table HB9439")
+
+##################################################################
+#                          HE9179
+##################################################################
+
+CREATE_HE9179 = """
+
+CREATE TABLE IF NOT EXISTS he9179 (
+
+    file_name               TEXT    NOT NULL,
+    ref_date                TEXT    NOT NULL,
+    weight_virtual_asset    REAL,
+    fund_size               REAL,
+
+    PRIMARY KEY (ref_date)
+)
+
+"""
+
+c.execute(CREATE_HE9179)
+c.execute("INSERT into he9179 VALUES ('','2024-04-29',0,0)")
+LOGGER.info("Created table HE9179")
+
 ####################################################################
 conn.commit()
 conn.close()
