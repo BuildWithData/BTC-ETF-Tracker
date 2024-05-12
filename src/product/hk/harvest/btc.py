@@ -1,11 +1,15 @@
+from bs4 import BeautifulSoup
 from datetime import datetime
 import os
+import pandas as pd
 from pathlib import Path
 from product.abc import ETP
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from sqlite3 import Connection
 from time import sleep
+from utils.constants import MONTH2NUMBER
 
 
 class HB9439(ETP):
@@ -61,7 +65,49 @@ class HB9439(ETP):
             f.write(driver.page_source)
 
     def extract(self):
-        raise NotImplementedError
 
-    def update_db(self):
-        raise NotImplementedError
+        for fn, content in self.files.items():
+            t = BeautifulSoup(content, "html.parser")
+
+            asset_allocation = t.find(id="holdings")
+
+            ref_date = asset_allocation.find(class_="titAsof ng-binding").text[6:].strip()
+
+            for name, number in MONTH2NUMBER.items():
+                ref_date = ref_date.upper().replace(name, number)
+
+            ref_date = list(reversed(ref_date.split(" ")))
+            ref_date[-1] = "0" + ref_date[-1] if int(ref_date[-1]) < 10 else ref_date[-1]
+            ref_date = "-".join(ref_date)
+
+            weight_virtual_asset = float(
+                asset_allocation
+                .find(class_="holdingsAssetAllocation")
+                .find(class_="ng-binding")
+                .text.strip("%")
+            )
+
+            fund_size = float(
+                asset_allocation
+                .find(class_="holdingsAssetAllocation")
+                .find(class_="ng-binding ng-scope")
+                .text
+            )
+            fund_size = fund_size * 10 ** 6
+
+            self.extracted[fn] = {
+                "file_name": fn,
+                "ref_date": ref_date,
+                "weight_virtual_asset": weight_virtual_asset,
+                "fund_size": fund_size
+            }
+
+    def update_db(self, con: Connection) -> None:
+
+        df = pd.DataFrame(self.extracted.values())
+
+        ##################
+        table = "hb9439"
+        keys = "ref_date"
+
+        self._dump(df, table, keys, con)
