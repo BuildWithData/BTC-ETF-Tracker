@@ -16,7 +16,7 @@ s_handler.setFormatter(formatter)
 LOGGER.setLevel(logging.INFO)
 LOGGER.addHandler(s_handler)
 
-parser = argparse.ArgumentParser(description="update table holdings_btc")
+parser = argparse.ArgumentParser(description="update table holdings")
 parser.add_argument("-d", "--date", help="target date", required=False)
 parser.add_argument("-f", "--force", help="force loading even if data have been already written for yyyy-mm-dd", action="store_const", const=True)
 
