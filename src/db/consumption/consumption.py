@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS products (
 
     ticker      TEXT    NOT NULL    PRIMARY KEY,
     type        TEXT    NOT NULL    CHECK (type in ('etf', 'etp')),
-    asset       TEXT    NOT NULL    CHECK (asset in ('BTC')),
+    asset       TEXT    NOT NULL    CHECK (asset in ('BTC', 'ETH')),
     firm        TEXT    NOT NULL,
-    country     TEXT                CHECK (country in ('USA'))
+    country     TEXT                CHECK (country in ('USA', 'HONG KONG'))
 
 )
 
@@ -46,7 +46,14 @@ INSERT INTO products VALUES
     ('FBTC', 'etp', 'BTC', 'Fidelity', 'USA'),
     ('GBTC', 'etp', 'BTC', 'Grayscale', 'USA'),
     ('HODL', 'etp', 'BTC', 'Vaneck', 'USA'),
-    ('IBIT', 'etp', 'BTC', 'BlackRock', 'USA')
+    ('IBIT', 'etp', 'BTC', 'BlackRock', 'USA'),
+
+    ('AB9042', 'etp', 'BTC', 'China AMC', 'HONG KONG'),
+    ('AE9046', 'etp', 'ETH', 'China AMC', 'HONG KONG'),
+    ('BB9008', 'etp', 'BTC', 'Borsera', 'HONG KONG'),
+    ('BE9009', 'etp', 'ETH', 'Bosera', 'HONG KONG'),
+    ('HB9439', 'etp', 'BTC', 'Harvest', 'HONG KONG'),
+    ('HE9179', 'etp', 'ETH', 'Harvest', 'HONG KONG')
 
 """
 
