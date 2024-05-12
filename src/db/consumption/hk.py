@@ -46,7 +46,7 @@ LOGGER.info("Created table HOLDINGS")
 #                           HOLDINGS_BFILL
 ##################################################################
 
-HOLDINGS_BTC_CREATE = """
+HOLDINGS_BFILL_CREATE = """
 
 CREATE TABLE IF NOT EXISTS holdings_bfill (
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS holdings_bfill (
 
 """
 
-c.execute(HOLDINGS_CREATE)
+c.execute(HOLDINGS_BFILL_CREATE)
 LOGGER.info("Created table HOLDINGS_BFILL")
 
 ###################################################################
