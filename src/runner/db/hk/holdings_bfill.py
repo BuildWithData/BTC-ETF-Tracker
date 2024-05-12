@@ -46,7 +46,7 @@ df = pd.DataFrame(data, columns=["ref_date", "week", "day"] + TICKERS)
 out = df.fillna(method="ffill")
 out["TOTAL_BTC"] = out.loc[:, HK_BTC_TICKERS].sum(axis=1)
 out["TOTAL_ETH"] = out.loc[:, HK_ETH_TICKERS].sum(axis=1)
-import pdb; pdb.set_trace()
+
 if ref_date is not None:
     out = out[out.ref_date == ref_date]
 
