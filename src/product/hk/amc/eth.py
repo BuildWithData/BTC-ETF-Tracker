@@ -89,7 +89,7 @@ class AE9046(ETP):
 
         ##################
         xlsx = df.rename({"file_name_xlsx": "file_name", "ref_date_xlsx": "ref_date"}, axis=1)
-        table = "AE9046_xlsx"
+        table = "ae9046_xlsx"
         keys = "ref_date"
 
         self._dump(xlsx, table, keys, con)
