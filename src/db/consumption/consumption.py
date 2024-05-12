@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS products (
 
     ticker      TEXT    NOT NULL    PRIMARY KEY,
     type        TEXT    NOT NULL    CHECK (type in ('etf', 'etp')),
+    asset       TEXT    NOT NULL    CHECK (asset in ('BTC')),
     firm        TEXT    NOT NULL,
-    country     TEXT                CHECK (country in ('USA', 'CANADA'))
+    country     TEXT                CHECK (country in ('USA'))
 
 )
 
@@ -37,15 +38,15 @@ PRODUCTS_INSERT = """
 
 INSERT INTO products VALUES
 
-    ('ARKB', 'etp', 'Ark Invest', 'USA'),
-    ('BITB', 'etp', 'Bitwise', 'USA'),
-    ('BRRR', 'etp', 'Valkyrie', 'USA'),
-    ('BTCO', 'etp', 'Invesco', 'USA'),
-    ('EZBC', 'etp', 'Franklin Templeton', 'USA'),
-    ('FBTC', 'etp', 'Fidelity', 'USA'),
-    ('GBTC', 'etp', 'Grayscale', 'USA'),
-    ('HODL', 'etp', 'Vaneck', 'USA'),
-    ('IBIT', 'etp', 'BlackRock', 'USA')
+    ('ARKB', 'etp', 'BTC', 'Ark Invest', 'USA'),
+    ('BITB', 'etp', 'BTC', 'Bitwise', 'USA'),
+    ('BRRR', 'etp', 'BTC', 'Valkyrie', 'USA'),
+    ('BTCO', 'etp', 'BTC', 'Invesco', 'USA'),
+    ('EZBC', 'etp', 'BTC', 'Franklin Templeton', 'USA'),
+    ('FBTC', 'etp', 'BTC', 'Fidelity', 'USA'),
+    ('GBTC', 'etp', 'BTC', 'Grayscale', 'USA'),
+    ('HODL', 'etp', 'BTC', 'Vaneck', 'USA'),
+    ('IBIT', 'etp', 'BTC', 'BlackRock', 'USA')
 
 """
 
