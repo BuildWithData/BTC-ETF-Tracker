@@ -15,9 +15,17 @@ import json
 import logging
 import os
 import pandas as pd
+import re
+import warnings
 
 
 LOGGER = logging.getLogger(__name__)
+
+warnings.filterwarnings(
+    "ignore",
+    category=UserWarning,
+    module=re.escape('openpyxl.styles.stylesheet')
+)
 
 
 class Products(ABC):
