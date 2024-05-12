@@ -17,12 +17,12 @@ LOGGER.info("Creating schema CONSUMPTION.HK at:")
 LOGGER.info(f"{PATH}")
 
 ##################################################################
-#                           HOLDINGS_BTC
+#                           HOLDINGS
 ##################################################################
 
-HOLDINGS_BTC_CREATE = """
+HOLDINGS_CREATE = """
 
-CREATE TABLE IF NOT EXISTS holdings_btc (
+CREATE TABLE IF NOT EXISTS holdings (
 
     ref_date    TEXT    NOT NULL,
     week        TEXT    NOT NULL,
@@ -39,16 +39,16 @@ CREATE TABLE IF NOT EXISTS holdings_btc (
 
 """
 
-c.execute(HOLDINGS_BTC_CREATE)
-LOGGER.info("Created table HOLDINGS_BTC")
+c.execute(HOLDINGS_CREATE)
+LOGGER.info("Created table HOLDINGS")
 
 ##################################################################
-#                           HOLDINGS_BTC_BFILL
+#                           HOLDINGS_BFILL
 ##################################################################
 
 HOLDINGS_BTC_CREATE = """
 
-CREATE TABLE IF NOT EXISTS holdings_btc_bfill (
+CREATE TABLE IF NOT EXISTS holdings_bfill (
 
     ref_date        TEXT    NOT NULL,
     week            TEXT    NOT NULL,
@@ -67,8 +67,8 @@ CREATE TABLE IF NOT EXISTS holdings_btc_bfill (
 
 """
 
-c.execute(HOLDINGS_BTC_CREATE)
-LOGGER.info("Created table HOLDINGS_BTC_BFILL")
+c.execute(HOLDINGS_CREATE)
+LOGGER.info("Created table HOLDINGS_BFILL")
 
 ###################################################################
 conn.commit()
