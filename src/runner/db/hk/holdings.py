@@ -34,7 +34,7 @@ QUERIES = {
     "HB9439": """
                 select
                     h.ref_date,
-                    round(h.fund_size * h.weight_virtual_asset / (a.market_price + b.market_price) * 2, 2) as n_coins
+                    round(h.fund_size * h.weight_virtual_asset / 100 / (a.market_price + b.market_price) * 2, 2) as n_coins
 
                 from hb9439 as h
 
@@ -48,7 +48,7 @@ QUERIES = {
     "HE9179": """
                 select
                     h.ref_date,
-                    round(h.fund_size * h.weight_virtual_asset / (a.market_price + b.market_price) * 2, 2) as n_coins
+                    round(h.fund_size * h.weight_virtual_asset / 100 / (a.market_price + b.market_price) * 2, 2) as n_coins
 
                 from he9179 as h
 
