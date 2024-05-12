@@ -2,6 +2,7 @@ import argparse
 from datetime import date
 from datetime import timedelta
 import logging
+from product.hk import TICKERS as HK_TICKERS
 from product.us import TICKERS as US_TICKERS
 import sqlite3
 from utils.config import RAW_SCHEMA_PATH
@@ -20,7 +21,7 @@ parser.add_argument("-d", "--date", help="target date", required=False)
 conn = sqlite3.connect(RAW_SCHEMA_PATH)
 c = conn.cursor()
 
-services = US_TICKERS
+services = US_TICKERS + HK_TICKERS
 
 ################
 # INPUTS
@@ -46,9 +47,13 @@ for date_ in target_dates:
     for Service in services:
 
         try:
-            s = Service(date_.isoformat())
-            s.read()
-            s.extract()
-            s.update_db(conn)
+            if date_ <= date.fromisoformat("2024-04-29") and Service in HK_TICKERS:
+                pass
+
+            else:
+                s = Service(date_.isoformat())
+                s.read()
+                s.extract()
+                s.update_db(conn)
         except:
             LOGGER.warning(f"{s} has failed")
