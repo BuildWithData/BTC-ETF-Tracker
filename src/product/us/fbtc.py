@@ -10,22 +10,7 @@ from selenium.webdriver.common.by import By
 from sqlite3 import Connection
 from time import sleep
 from typing import Union
-
-
-MONTH2NUMBER = {
-    "JAN": "01",
-    "FEB": "02",
-    "MAR": "03",
-    "APR": "04",
-    "MAY": "05",
-    "JUN": "06",
-    "JUL": "07",
-    "AUG": "08",
-    "SEP": "09",
-    "OCT": "10",
-    "NOV": "11",
-    "DEC": "12"
-}
+from utils.constants import MONTH2NUMBER
 
 
 class FBTC(ETP):
