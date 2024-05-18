@@ -70,6 +70,62 @@ CREATE TABLE IF NOT EXISTS holdings_bfill (
 c.execute(HOLDINGS_BFILL_CREATE)
 LOGGER.info("Created table HOLDINGS_BFILL")
 
+##################################################################
+#                           INFLOWS
+##################################################################
+
+INFLOWS_CREATE = """
+
+CREATE TABLE IF NOT EXISTS inflows (
+
+    ref_date    TEXT    NOT NULL,
+    week        TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
+    AB9042          REAL,
+    AE9046          REAL,
+    BB9008          REAL,
+    BE9009          REAL,
+    HB9439          REAL,
+    HE9179          REAL,
+    TOTAL_BTC       REAL,
+    TOTAL_ETH       REAL,
+
+    PRIMARY KEY (ref_date)
+)
+
+"""
+
+c.execute(INFLOWS_CREATE)
+LOGGER.info("Created table INFLOWS")
+
+##################################################################
+#                           INFLOWS_BFILL
+##################################################################
+
+INFLOWS_BFILL_CREATE = """
+
+CREATE TABLE IF NOT EXISTS inflows_bfill (
+
+    ref_date    TEXT    NOT NULL,
+    week        TEXT    NOT NULL,
+    day         TEXT    NOT NULL,
+    AB9042          REAL,
+    AE9046          REAL,
+    BB9008          REAL,
+    BE9009          REAL,
+    HB9439          REAL,
+    HE9179          REAL,
+    TOTAL_BTC       REAL,
+    TOTAL_ETH       REAL,
+
+    PRIMARY KEY (ref_date)
+)
+
+"""
+
+c.execute(INFLOWS_BFILL_CREATE)
+LOGGER.info("Created table INFLOWS_BFILL")
+
 ###################################################################
 conn.commit()
 conn.close()
