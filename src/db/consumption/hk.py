@@ -78,9 +78,9 @@ INFLOWS_CREATE = """
 
 CREATE TABLE IF NOT EXISTS inflows (
 
-    ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
-    day         TEXT    NOT NULL,
+    ref_date        TEXT    NOT NULL,
+    week            TEXT    NOT NULL,
+    day             TEXT    NOT NULL,
     AB9042          REAL,
     AE9046          REAL,
     BB9008          REAL,
@@ -106,9 +106,9 @@ INFLOWS_BFILL_CREATE = """
 
 CREATE TABLE IF NOT EXISTS inflows_bfill (
 
-    ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
-    day         TEXT    NOT NULL,
+    ref_date        TEXT    NOT NULL,
+    week            TEXT    NOT NULL,
+    day             TEXT    NOT NULL,
     AB9042          REAL,
     AE9046          REAL,
     BB9008          REAL,
