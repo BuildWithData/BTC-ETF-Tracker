@@ -1,6 +1,6 @@
 from datetime import datetime
-import os
 from numpy import NaN
+import os
 import pandas as pd
 from pathlib import Path
 from product.abc import ETP
@@ -72,6 +72,7 @@ class AE9046(ETP):
             total_nav = df.iloc[1, 2]
             cash = df.iloc[2, 2]
             # sometimes cash in not reported, eg 2024-05-20
+            # ie let's consider it as 0
             if cash is NaN:
                 cash = 0
             market_price = df.iloc[5, 6]
