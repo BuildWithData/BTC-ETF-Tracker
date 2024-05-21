@@ -12,6 +12,7 @@ with open(_CONFIG_PATH, "r") as f:
 DATA_BASE_PATH = _config["Path"]["data"]
 
 RAW_PATH = os.path.join(DATA_BASE_PATH, "raw")
+PATH_BTMX = os.path.join(RAW_PATH, "external/bitmex/btc_flow.csv")
 
 DATABASE_BASE_PATH = _config["Path"]["db"]
 if DATABASE_BASE_PATH == "" or DATABASE_BASE_PATH is None:
