@@ -4,6 +4,7 @@ from numpy import NaN
 import pandas as pd
 import sqlite3
 from utils.config import CONSUMPTION_US_SCHEMA_PATH
+from utils.config import PATH_BTMX
 from utils.constants import TICKERS
 import warnings
 
@@ -28,7 +29,6 @@ inflows = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + T
 QUERY = "select * from holdings_btc_bfill"
 holdings = pd.DataFrame(c.execute(QUERY), columns=["ref_date", "week", "day"] + TICKERS + ["TOTAL"])
 
-PATH_BTMX = '/Users/bwd/Code-From-Videos/btc_etf_holdings/data/raw/external/bitmex/btc_flow.csv'
 btmx = pd.read_csv(PATH_BTMX)
 
 ######################
