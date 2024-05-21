@@ -1,4 +1,5 @@
 from datetime import datetime
+from numpy import NaN
 import os
 import pandas as pd
 from pathlib import Path
@@ -70,6 +71,10 @@ class AB9042(ETP):
             ref_date_xlsx = df.iloc[0, 2].replace("/", "-")
             total_nav = df.iloc[1, 2]
             cash = df.iloc[2, 2]
+            # sometimes cash in not reported
+            # ie let's consider it as 0
+            if cash is NaN:
+                cash = 0
             market_price = df.iloc[5, 6]
 
             n_coins = round((total_nav - cash) / market_price, 2)
