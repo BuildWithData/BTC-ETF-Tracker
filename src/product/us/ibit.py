@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from datetime import date
 from datetime import datetime
 import os
 import pandas as pd
@@ -35,19 +36,41 @@ class IBIT(ETP):
 
     def extract(self):
 
+        first_dom_change_date = date.fromisoformat("2024-05-22")
+
         for name, content in self.files.items():
             t = BeautifulSoup(content, "html.parser")
             key_facts_table = t.find(class_="product-data-list data-points-en_US")
-            portfolio_characteristics = t.find(class_="float-left in-left col-levelAmount")
+
+            if self.date < first_dom_change_date:
+                portfolio_characteristics = t.find(class_="float-left in-left col-levelAmount")
+            else:
+                portfolio_characteristics = t.find_all(class_="product-data-list data-points-en_US")[-1]
 
             ref_date = datetime.strptime(
                 key_facts_table.find(class_="as-of-date").text.strip("\n").strip("as of").replace(",", ""),
                 "%b %d %Y"
             ).date().isoformat()
             market_cap = int(key_facts_table.find(class_="data").text.strip("\n").strip("$").replace(",", ""))
-            daily_traded_volume = int(float(key_facts_table.find(class_="float-left in-left col-consolidatedVolume").find(class_="data").text.strip("\n").replace(",", "")))
-            n_shares = int(key_facts_table.find(class_="float-left in-right col-sharesOutstanding").find(class_="data").text.strip("\n").replace(",", ""))
-            closing_price = float(key_facts_table.find(class_="float-left in-right col-closingPrice").find(class_="data").text.strip("\n"))
+
+            if self.date < first_dom_change_date:
+                class_ = "float-left in-left col-consolidatedVolume"
+            else:
+                class_ = "product-data-item col-consolidatedVolume"
+            daily_traded_volume = int(float(key_facts_table.find(class_=class_).find(class_="data").text.strip("\n").replace(",", "")))
+
+            if self.date < first_dom_change_date:
+                class_ = "float-left in-right col-sharesOutstanding"
+            else:
+                class_ = "product-data-item col-sharesOutstanding"
+            n_shares = int(key_facts_table.find(class_=class_).find(class_="data").text.strip("\n").replace(",", ""))
+
+            if self.date < first_dom_change_date:
+                class_ = "float-left in-right col-closingPrice"
+            else:
+                class_ = "product-data-item col-closingPrice"
+            closing_price = float(key_facts_table.find(class_=class_).find(class_="data").text.strip("\n"))
+
             btc_ref_price = float(portfolio_characteristics.find(class_="data").text.strip("\n").strip("USD ").replace(",", ""))
             n_coins = int(market_cap / btc_ref_price)
 
