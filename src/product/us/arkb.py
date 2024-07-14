@@ -83,8 +83,9 @@ class ARKB(ETP):
             t = BeautifulSoup(content, "html.parser")
 
             # NAV Historical Change
-            market_price = float(t.find(class_="col-xl-4 col-lg-4").find_all("span")[3].text.strip().strip("$"))
-            daily_share_volume = int(t.find(class_="col-xl-4 col-lg-4").find_all("span")[5].text.split(" ")[0].strip().replace(",", ""))
+            # TODO: https://github.com/BuildWithData/BTC-ETF-Tracker/issues/87
+            market_price = None #float(t.find(class_="col-xl-4 col-lg-4").find_all("span")[3].text.strip().strip("$"))
+            daily_share_volume = None #int(t.find(class_="col-xl-4 col-lg-4").find_all("span")[5].text.split(" ")[0].strip().replace(",", ""))
             ref_date_html = datetime.strptime(
                 t.find(class_="b-promo-funds__item-date").text.split(" ")[2],
                 "%m/%d/%Y"
