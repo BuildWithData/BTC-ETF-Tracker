@@ -15,7 +15,7 @@ class BRRR(ETP):
     """Valkyrie"""
 
     def url(self):
-        return "https://valkyrieinvest.com/brrr/"
+        return "https://valkyrie-funds.com/brrr/"
 
     def _file_extension(self):
         return "html"
@@ -45,10 +45,13 @@ class BRRR(ETP):
 
                 # Fund Summary
                 class_ = "mcb-wrap-inner mcb-wrap-inner-d7b93a111 mfn-module-wrapper mfn-wrapper-for-wraps"
-                if self.date >= date.fromisoformat("2024-04-17"):
+                if self.date >= date.fromisoformat("2024-04-17") and self.date < date.fromisoformat("2024-08-05"):
                     class_ = "wrap mcb-wrap mcb-wrap-47ffbbeef one tablet-one laptop-one mobile-one rounded-edges clearfix"
+                elif self.date >= date.fromisoformat("2024-08-05"):
+                    class_ = "wrap mcb-wrap mcb-wrap-1c54f4b2d one tablet-one laptop-one mobile-one rounded-edges clearfix"
 
                 fund_summary_section = t.find(class_=class_)
+
                 ref_date_fund_summary = datetime.strptime(
                     fund_summary_section.find("p").text.split(" ")[-1],
                     "%m/%d/%Y"
@@ -58,15 +61,18 @@ class BRRR(ETP):
 
                 # Holdings
                 class_ = "mcb-wrap-inner mcb-wrap-inner-5a0dc249f mfn-module-wrapper mfn-wrapper-for-wraps"
-                if self.date >= date.fromisoformat("2024-04-17"):
+                if self.date >= date.fromisoformat("2024-04-17") and self.date < date.fromisoformat("2024-08-05"):
                     class_ = "wrap mcb-wrap mcb-wrap-4c89abd16 one-second tablet-one-second laptop-one-second mobile-one clearfix"
+                elif self.date >= date.fromisoformat("2024-08-05"):
+                    class_ = "mcb-wrap-inner mcb-wrap-inner-76518d265 mfn-module-wrapper mfn-wrapper-for-wraps"
 
                 holdings_section = t.find_all(class_=class_)[0].find("table")
 
-                if self.date >= date.fromisoformat("2024-04-17"):
+                class_ = "column mcb-column mcb-item-118575426 one laptop-one tablet-one mobile-one column_column"
+                if self.date >= date.fromisoformat("2024-04-17") and self.date < date.fromisoformat("2024-08-05"):
                     class_ = "mcb-column-inner mfn-module-wrapper mcb-column-inner-677c130fe mcb-item-column-inner"
-                else:
-                    class_ = "column mcb-column mcb-item-118575426 one laptop-one tablet-one mobile-one column_column"
+                elif self.date >= date.fromisoformat("2024-08-05"):
+                    class_ = "mcb-wrap-inner mcb-wrap-inner-76518d265 mfn-module-wrapper mfn-wrapper-for-wraps"
 
                 ref_date_holdings = datetime.strptime(
                     t.find_all(class_=class_)[0].find("p").text.split(" ")[-1],
