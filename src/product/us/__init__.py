@@ -1,4 +1,5 @@
 from product.us.arkb import ARKB
+from product.us.btc import BTC
 from product.us.bitb import BITB
 from product.us.brrr import BRRR
 from product.us.btco import BTCO
@@ -12,6 +13,7 @@ from product.us.ibit import IBIT
 TICKERS = [
 
     ARKB,
+    BTC,
     BITB,
     BRRR,
     BTCO,

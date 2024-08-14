@@ -4,6 +4,7 @@ from datetime import timedelta
 import logging
 from product.hk import TICKERS as HK_TICKERS
 from product.us import TICKERS as US_TICKERS
+from product.us.btc import BTC
 import sqlite3
 from utils.config import RAW_SCHEMA_PATH
 
@@ -48,6 +49,9 @@ for date_ in target_dates:
 
         try:
             if date_ <= date.fromisoformat("2024-04-29") and Service in HK_TICKERS:
+                pass
+
+            elif date_ <= date.fromisoformat("2024-08-02") and Service in [BTC]:
                 pass
 
             else:
