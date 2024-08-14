@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from datetime import date, datetime
 import os
+import pandas as pd
 from pathlib import Path
 from product.abc import ETP
 import requests
@@ -71,4 +72,21 @@ class BTC(ETP):
             }
 
     def update_db(self, con: Connection) -> None:
-        raise NotImplementedError
+
+        df = pd.DataFrame(self.extracted.values())
+
+        ##################
+        key_fund_information = df[["file_name"] + list(df.columns[1:5])]
+        key_fund_information = key_fund_information.rename({"ref_date_key_fund_information": "ref_date"}, axis=1)
+        table = "btc_key_fund_information"
+        keys = "ref_date"
+
+        self._dump(key_fund_information, table, keys, con)
+
+        ##################
+        daily_performance = df[["file_name"] + list(df.columns[5:])]
+        daily_performance = daily_performance.rename({"ref_date_daily_performance": "ref_date"}, axis=1)
+        table = "btc_daily_performance"
+        keys = "ref_date"
+
+        self._dump(daily_performance, table, keys, con)
