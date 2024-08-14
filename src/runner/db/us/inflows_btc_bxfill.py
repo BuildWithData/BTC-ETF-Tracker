@@ -38,7 +38,7 @@ inflows = inflows.drop("day", axis=1)
 holdings = holdings.drop("week", axis=1)
 holdings = holdings.drop("day", axis=1)
 
-btmx_comulative_inflows_at_02_23 = btmx[btmx.ref_date <= "2024-02-23"][TICKERS].sum()
+btmx_comulative_inflows_at_02_23 = btmx[btmx.ref_date <= "2024-02-23"][[t for t in TICKERS if t != "BTC"]].sum()
 btmx_holdings_day0 = btmx.loc[1]
 btmx_holdings_at_02_23 = btmx_comulative_inflows_at_02_23 + btmx_holdings_day0
 
