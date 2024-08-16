@@ -31,6 +31,7 @@ QUERIES = {
     "ARKB": "select ref_date, n_coins as ARKB from arkb_csv",
     "BIBT": "select ref_date, btc_in_trust as BIBT from bibt_fund_holdings",
     "BRRR": "select ref_date, n_coins as BRRR from brrr_holdings",
+    "BTC": "select ref_date, n_coins as BTC from btc_key_fund_information",
     "BTCO": "select ref_date, n_coins as BTCO from btco",
     "EZBC": "select ref_date, n_coins as EZBC from ezbc_fund_information",
     "FBTC": "select ref_date, n_coins as FBTC from fbtc_xls",
