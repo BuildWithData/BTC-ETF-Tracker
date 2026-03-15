@@ -56,9 +56,6 @@ for ticker, query in QUERIES.items():
         query += f" where ref_date = '{ref_date}'"
 
     data = list(c_raw.execute(query))
-    if ticker == "BTCO":
-        # TODO: replace this with logic to calculate n_coins = MarketCap / btc_price
-        data = [(t[0], np.NaN) for t in data]
 
     df = pd.DataFrame(data, columns=["ref_date", ticker])
     df[ticker] = df[ticker].round(2)
