@@ -2,12 +2,12 @@
 
 echo "############################"
 echo "Creating env variable PYTHONPATH..."
-ROOT_DIRECTORY=$(cat config.yaml| grep root | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
+ROOT_DIRECTORY=$(grep '^[[:space:]]*root:' config.yaml | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
 export PYTHONPATH=$ROOT_DIRECTORY/src
 
 echo "############################"
-DATA_PATH=$(cat config.yaml | grep data | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
-DB_PATH=$(cat config.yaml | grep db | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
+DATA_PATH=$(grep '^[[:space:]]*data:' config.yaml | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
+DB_PATH=$(grep '^[[:space:]]*db:' config.yaml | cut -d : -f2 | sed 's/"//g' | sed 's/ //g')
 
 if [ -z "$DB_PATH" ]
 then

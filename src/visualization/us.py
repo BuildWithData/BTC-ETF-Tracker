@@ -21,14 +21,8 @@ def current_holdings() -> DataFrame:
     Table with current holdings [BTC] at most recent available date
     """
 
-    QUERY = "select * from holdings_btc_bfill order by ref_date desc limit 1"
-    current_holdings = pd.DataFrame(c.execute(QUERY), columns=["Date", "week", "day"] + TICKERS + ["TOTAL"])
-    current_holdings = current_holdings.drop("BTCO", axis=1)
-    current_holdings = current_holdings.drop("week", axis=1)
-    current_holdings = current_holdings.drop("day", axis=1)
-    current_holdings = current_holdings.round(2)
-
-    return current_holdings
+    from visualization.common import current_holdings as ch
+    return ch(c, table_name="holdings_btc_bfill", tickers_to_drop=["BTCO"])
 
 
 def daily_inflows() -> DataFrame:
