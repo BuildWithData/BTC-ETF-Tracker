@@ -25,7 +25,7 @@ HOLDINGS_CREATE = """
 CREATE TABLE IF NOT EXISTS holdings (
 
     ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
+    week        INT     NOT NULL,
     day         TEXT    NOT NULL,
     AB9042      REAL,
     AE9046      REAL,
@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS holdings (
 
 """
 
+c.execute("DROP TABLE IF EXISTS holdings")
 c.execute(HOLDINGS_CREATE)
 LOGGER.info("Created table HOLDINGS")
 
@@ -51,7 +52,7 @@ HOLDINGS_BFILL_CREATE = """
 CREATE TABLE IF NOT EXISTS holdings_bfill (
 
     ref_date        TEXT    NOT NULL,
-    week            TEXT    NOT NULL,
+    week            INT     NOT NULL,
     day             TEXT    NOT NULL,
     AB9042          REAL,
     AE9046          REAL,
@@ -67,6 +68,7 @@ CREATE TABLE IF NOT EXISTS holdings_bfill (
 
 """
 
+c.execute("DROP TABLE IF EXISTS holdings_bfill")
 c.execute(HOLDINGS_BFILL_CREATE)
 LOGGER.info("Created table HOLDINGS_BFILL")
 
@@ -79,7 +81,7 @@ INFLOWS_CREATE = """
 CREATE TABLE IF NOT EXISTS inflows (
 
     ref_date        TEXT    NOT NULL,
-    week            TEXT    NOT NULL,
+    week            INT     NOT NULL,
     day             TEXT    NOT NULL,
     AB9042          REAL,
     AE9046          REAL,
@@ -95,6 +97,7 @@ CREATE TABLE IF NOT EXISTS inflows (
 
 """
 
+c.execute("DROP TABLE IF EXISTS inflows")
 c.execute(INFLOWS_CREATE)
 LOGGER.info("Created table INFLOWS")
 
@@ -107,7 +110,7 @@ INFLOWS_BFILL_CREATE = """
 CREATE TABLE IF NOT EXISTS inflows_bfill (
 
     ref_date        TEXT    NOT NULL,
-    week            TEXT    NOT NULL,
+    week            INT     NOT NULL,
     day             TEXT    NOT NULL,
     AB9042          REAL,
     AE9046          REAL,
@@ -123,6 +126,7 @@ CREATE TABLE IF NOT EXISTS inflows_bfill (
 
 """
 
+c.execute("DROP TABLE IF EXISTS inflows_bfill")
 c.execute(INFLOWS_BFILL_CREATE)
 LOGGER.info("Created table INFLOWS_BFILL")
 
@@ -135,7 +139,7 @@ INFLOWS_SMA5_CREATE = """
 CREATE TABLE IF NOT EXISTS inflows_sma5 (
 
     ref_date        TEXT    NOT NULL,
-    week            TEXT    NOT NULL,
+    week            INT     NOT NULL,
     day             TEXT    NOT NULL,
     AB9042          REAL,
     AE9046          REAL,
@@ -151,6 +155,7 @@ CREATE TABLE IF NOT EXISTS inflows_sma5 (
 
 """
 
+c.execute("DROP TABLE IF EXISTS inflows_sma5")
 c.execute(INFLOWS_SMA5_CREATE)
 LOGGER.info("Created table INFLOWS_SMA5")
 

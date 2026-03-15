@@ -25,7 +25,7 @@ HOLDINGS_BTC_CREATE = """
 CREATE TABLE IF NOT EXISTS holdings_btc (
 
     ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
+    week        INT     NOT NULL,
     day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS holdings_btc (
 
 """
 
+c.execute("DROP TABLE IF EXISTS holdings_btc")
 c.execute(HOLDINGS_BTC_CREATE)
 LOGGER.info("Created table HOLDINGS_BTC")
 
@@ -55,7 +56,7 @@ HOLDINGS_BTC_CREATE = """
 CREATE TABLE IF NOT EXISTS holdings_btc_bfill (
 
     ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
+    week        INT     NOT NULL,
     day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
@@ -74,6 +75,7 @@ CREATE TABLE IF NOT EXISTS holdings_btc_bfill (
 
 """
 
+c.execute("DROP TABLE IF EXISTS holdings_btc_bfill")
 c.execute(HOLDINGS_BTC_CREATE)
 LOGGER.info("Created table HOLDINGS_BTC_BFILL")
 
@@ -86,7 +88,7 @@ INFLOWS_BTC_CREATE = """
 CREATE TABLE IF NOT EXISTS inflows_btc (
 
     ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
+    week        INT     NOT NULL,
     day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
@@ -105,6 +107,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc (
 
 """
 
+c.execute("DROP TABLE IF EXISTS inflows_btc")
 c.execute(INFLOWS_BTC_CREATE)
 LOGGER.info("Created table INFLOWS_BTC")
 
@@ -117,7 +120,7 @@ INFLOWS_BTC_BFILL_CREATE = """
 CREATE TABLE IF NOT EXISTS inflows_btc_bfill (
 
     ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
+    week        INT     NOT NULL,
     day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
@@ -136,6 +139,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc_bfill (
 
 """
 
+c.execute("DROP TABLE IF EXISTS inflows_btc_bfill")
 c.execute(INFLOWS_BTC_BFILL_CREATE)
 LOGGER.info("Created table INFLOWS_BTC_BFILL")
 
@@ -148,7 +152,7 @@ INFLOWS_BTC_BXFILL_CREATE = """
 CREATE TABLE IF NOT EXISTS inflows_btc_bxfill (
 
     ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
+    week        INT     NOT NULL,
     day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
@@ -167,6 +171,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc_bxfill (
 
 """
 
+c.execute("DROP TABLE IF EXISTS inflows_btc_bxfill")
 c.execute(INFLOWS_BTC_BXFILL_CREATE)
 LOGGER.info("Created table INFLOWS_BTC_BXFILL")
 
@@ -179,7 +184,7 @@ INFLOWS_BTC_SMA5_CREATE = """
 CREATE TABLE IF NOT EXISTS inflows_btc_sma5 (
 
     ref_date    TEXT    NOT NULL,
-    week        TEXT    NOT NULL,
+    week        INT     NOT NULL,
     day         TEXT    NOT NULL,
     ARKB        REAL,
     BITB        REAL,
@@ -198,6 +203,7 @@ CREATE TABLE IF NOT EXISTS inflows_btc_sma5 (
 
 """
 
+c.execute("DROP TABLE IF EXISTS inflows_btc_sma5")
 c.execute(INFLOWS_BTC_SMA5_CREATE)
 LOGGER.info("Created table INFLOWS_BTC_SMA5")
 
