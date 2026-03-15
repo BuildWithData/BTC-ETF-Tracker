@@ -4,6 +4,7 @@ import os
 import pandas as pd
 from pathlib import Path
 from product.abc import ETP
+import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -53,6 +54,18 @@ class BTCO(ETP):
             n_shares = int(float(quick_facts.find_all(class_="pull-right")[-2].text.strip("M")) * 10 ** 6)
             closing_price = float(t.find(class_="widget gray-bg stacked canadian").find(class_="pull-right").text.split("$")[-1])
 
+            # Calculate n_coins using Coinbase API (Coinbase is custodian)
+            n_coins = None
+            try:
+                url = f"https://api.coinbase.com/v2/prices/BTC-USD/spot?date={ref_date}"
+                r = requests.get(url, timeout=10)
+                if r.status_code == 200:
+                    btc_ref_price = float(r.json()["data"]["amount"])
+                    if btc_ref_price > 0:
+                        n_coins = (market_cap * 10**6) / btc_ref_price
+            except Exception:
+                pass
+
             self.extracted[name] = {
                 "file_name": name,
                 "ref_date": ref_date,
@@ -60,7 +73,7 @@ class BTCO(ETP):
                 "daily_traded_volume": daily_traded_volume,
                 "n_shares": n_shares,
                 "closing_price": closing_price,
-                "n_coins": None,
+                "n_coins": n_coins,
             }
 
     def update_db(self, con: Connection) -> None:
