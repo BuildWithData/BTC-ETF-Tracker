@@ -55,7 +55,7 @@ class FBTC(ETP):
         with open(path, "w") as f:
             f.write(driver.page_source)
 
-        driver.find_elements(By.CLASS_NAME, "pvd-link__link")[5].click()
+        driver.find_element(By.PARTIAL_LINK_TEXT, "Prospectus, holdings").click()
         new_window = driver.window_handles[-1]
         driver.switch_to.window(new_window)
         sleep(10)
