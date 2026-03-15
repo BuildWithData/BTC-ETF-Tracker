@@ -86,10 +86,11 @@ class ARKB(ETP):
             # TODO: https://github.com/BuildWithData/BTC-ETF-Tracker/issues/87
             market_price = None #float(t.find(class_="col-xl-4 col-lg-4").find_all("span")[3].text.strip().strip("$"))
             daily_share_volume = None #int(t.find(class_="col-xl-4 col-lg-4").find_all("span")[5].text.split(" ")[0].strip().replace(",", ""))
-            ref_date_html = datetime.strptime(
-                t.find(class_="b-promo-funds__item-date").text.split(" ")[2],
-                "%m/%d/%Y"
-            ).date().isoformat() # TODO: wrong
+            # ref_date_html = datetime.strptime(
+            #     t.find(class_="b-promo-funds__item-date").text.split(" ")[2],
+            #     "%m/%d/%Y"
+            # ).date().isoformat() # TODO: wrong
+            ref_date_html = None
 
             fn_csv = ".".join([ts, "csv"])
             content = self.files[fn_csv]
@@ -116,12 +117,13 @@ class ARKB(ETP):
         df = pd.DataFrame(self.extracted.values())
 
         ##################
-        html = df[df.columns[:6]]
-        html = html.rename({"file_name_html": "file_name", "ref_date_html": "ref_date"}, axis=1)
-        table = "arkb_html"
-        keys = "ref_date"
+        # ##################
+        # html = df[df.columns[:6]]
+        # html = html.rename({"file_name_html": "file_name", "ref_date_html": "ref_date"}, axis=1)
+        # table = "arkb_html"
+        # keys = "ref_date"
 
-        self._dump(html, table, keys, con)
+        # self._dump(html, table, keys, con)
 
         ##################
         csv = df[df.columns[6:]]
